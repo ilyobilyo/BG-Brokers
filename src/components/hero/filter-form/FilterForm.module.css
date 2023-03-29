@@ -1,0 +1,40 @@
+.filterForm {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.filterForm a {
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1.2rem;
+    color: #0D0338;
+    display: inline-block;
+    width: 30%;
+    text-align: end;
+    margin-left: 62rem;
+    margin-top: 1rem;
+}
+
+.btnSearch {
+    padding: 0.5rem 1rem;
+    margin: 0;
+    background-color: #008CEB;
+    border: none;
+    border-radius: 20px;
+    width: 50%;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 2rem;
+    color: #fff;
+    transition: 500ms;
+    box-shadow: 0.5px 0.5px 2px #0D0338;
+}
+
+.btnSearch:hover {
+    background-color: #0D0338;
+    color: #4AC6ED;
+}
+
