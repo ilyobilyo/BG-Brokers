@@ -8,7 +8,7 @@ export const SelectField = ({title, id, type, icon, options}) => {
                 <i className={icon} /> {title}
             </label>
             <select name={type} id={id}>
-                {options.map(x => <FilterSelectOption key={x} value={x} text={x}/>)}
+                {options.map(x => <FilterSelectOption key={x.name} value={x.name} text={x.name}/>)}
             </select>
         </div>
     )
