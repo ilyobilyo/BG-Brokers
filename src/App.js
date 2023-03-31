@@ -1,7 +1,7 @@
 import './App.css';
 import { Header } from './components/header/Header';
 import { Hero } from './components/hero/Hero';
-import { TownProvider } from './contexts/TownContext';
+import { OfferLocationProvider } from './contexts/OfferLocationContext';
 import { TypeProvider } from './contexts/TypeContext';
 
 function App() {
@@ -10,11 +10,11 @@ function App() {
       <Header />
 
       <TypeProvider>
-        <TownProvider>
+        <OfferLocationProvider>
           
           <Hero />
 
-        </TownProvider>
+        </OfferLocationProvider>
       </TypeProvider>
     </div>
   );
