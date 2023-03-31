@@ -5,12 +5,31 @@ import { useContext, useState } from "react";
 
 import { AdvancedFilter } from "./advancedFilter/AdvancedFilter";
 import { TypeContext } from "../../../contexts/TypeContext";
-import { TownContext } from "../../../contexts/TownContext";
+import { OfferLocationContext } from "../../../contexts/OfferLocationContext";
+import { checkPrice } from "../../../utils/validate";
 
 export const FilterForm = () => {
     const {types} = useContext(TypeContext);
-    const {towns, hoods} = useContext(TownContext);
+    const {towns, hoods, getTownHoods} = useContext(OfferLocationContext);
 
+    const [errors, setErrors] = useState({
+        priceFrom: '',
+        priceTo:'',
+        quadrature: '',
+    })
+    const [formData, setFormData] = useState({
+        sellType: '',
+        offerType: '',
+        town: '',
+        hood: '',
+        priceFrom: '',
+        priceTo: '',
+        furniture: '',
+        heating: '',
+        exposition: '',
+        construction: '',
+        quadrature: '',
+    })
     const [showAdvanced, setShowAdvanced] = useState(false);
 
     const advancedClickHandler = (e) => {
@@ -19,17 +38,70 @@ export const FilterForm = () => {
         setShowAdvanced(!showAdvanced);
     }
 
+    const onChange = (e) => {
+        setFormData(state => ({
+            ...state,
+            [e.target.name]: e.target.value
+        }))
+    }
+
+    const validatePrice = (e) => {
+        setErrors(state => ({
+            ...state,
+            priceFrom: checkPrice(Number(formData.priceFrom))
+        }))
+    }
+
+    const setTownHoods = (e) => {
+        getTownHoods(formData.town)
+    }
+
     return (
-        types.length === 0 || towns.length === 0 || hoods.length === 0
+        types === undefined || towns.length === 0
             ? <p>Loading...</p>
             : <form className={styles.filterForm}>
-                <SelectField title='Вид продажба' type={'sellType'} id={'sell-type'} icon='fas fa-search-dollar' options={types.sellType} />
-                <SelectField title='Вид на имота' type={'offerType'} id={'offer-type'} icon='far fa-building' options={types.offerType} />
-                <SelectField title='Град' type={'town'} id={'offer-town'} icon='fas fa-city' options={towns} />
-                <SelectField title='Квартал' type={'hood'} id={'offer-hood'} icon='fas fa-map-marked-alt' options={hoods} />
+                <SelectField 
+                    title='Вид продажба' 
+                    type={'sellType'} 
+                    id={'sell-type'} 
+                    icon='fas fa-search-dollar' 
+                    options={types.sellType}
+                    onChangeHandler={onChange}
+                />
+                <SelectField 
+                    title='Вид на имота' 
+                    type={'offerType'} 
+                    id={'offer-type'} 
+                    icon='far fa-building' 
+                    options={types.offerType}
+                    onChangeHandler={onChange}
+                />
+                <SelectField 
+                    title='Град' 
+                    type={'town'} 
+                    id={'offer-town'} 
+                    icon='fas fa-city' 
+                    options={towns} 
+                    optionValues={Object.keys(towns)}
+                    onChangeHandler={onChange}
+                    onBlurHndler={setTownHoods}
+                />
+                <SelectField 
+                    title='Квартал' 
+                    type={'hood'} 
+                    id={'offer-hood'} 
+                    icon='fas fa-map-marked-alt' 
+                    options={hoods} 
+                    onChangeHandler={onChange}
+                />
 
                 {showAdvanced
-                    ? <AdvancedFilter hideClickHandler={advancedClickHandler} types={types}/>
+                    ? <AdvancedFilter 
+                        hideClickHandler={advancedClickHandler} 
+                        types={types} 
+                        onChangeHandler={onChange}
+                        validatePrice={validatePrice}
+                    />
                     : <a href="#/" onClick={advancedClickHandler}>
                         <i className="fas fa-caret-down" /> Advanced
                     </a>
