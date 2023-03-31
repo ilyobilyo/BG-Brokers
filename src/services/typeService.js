@@ -1,12 +1,15 @@
-import { doc, getDoc } from "firebase/firestore";
+import { collection, getDocs } from "firebase/firestore";
 import { db } from "../firebase";
 
-const typesRef = doc(db, "Types", 'c7i447y51jobjHdcLjWS');
-
 export async function GetAllTypes() {
-    const docSnap = await getDoc(typesRef);
+    const querySnapshot = await getDocs(collection(db, 'Types'));
 
-    console.log(docSnap.data());
+    const data = querySnapshot.docs.reduce((acc, cur) => {
+        acc[cur.id] = cur.data().types;
+        return acc;
+    }, {});
 
-    return docSnap.data();
+    console.log(data);
+
+    return data;
 }

@@ -1,12 +1,20 @@
-import { doc, getDoc } from "firebase/firestore";
+import { collection, getDocs } from "firebase/firestore";
 import { db } from "../firebase";
 
-const townsRef = doc(db, "Towns", 'xuUdivejgeQAlVbykqso');
+export async function GetAllTowns() {
+    const querySnapshot = await getDocs(collection(db, 'Towns'));
 
-export async function GetAllTownsWithHoods() {
-    const docSnap = await getDoc(townsRef);
+    const data = querySnapshot.docs.map(x => {
+        const data = x.data();
+        return {
+            id: x.id,
+            name: data.name,
+            hoods: data.hoods
+        }
+    })
 
-    console.log(docSnap.data());
+    console.log(data);
 
-    return docSnap.data();
+    return data;
 }
+
