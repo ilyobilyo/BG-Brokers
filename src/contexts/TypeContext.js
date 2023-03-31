@@ -4,7 +4,7 @@ import { GetAllTypes } from "../services/typeService";
 export const TypeContext = createContext();
 
 export const TypeProvider = ({children}) => {
-    const [types, setTypes] = useState([]);
+    const [types, setTypes] = useState({});
 
     useEffect(() => {
         GetAllTypes()
