@@ -1,6 +1,6 @@
 
-export const FilterSelectOption = ({value}) => {
+export const FilterSelectOption = ({value, text}) => {
     return(
-        <option value={value}>{value}</option>
+        <option value={value}>{text}</option>
     )
 }
