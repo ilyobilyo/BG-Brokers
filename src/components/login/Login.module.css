@@ -1,0 +1,110 @@
+.modal {
+    display: flex;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0, 0, 0);
+    background-color: rgba(0, 0, 0, 0.4);
+    transform: scale(1);
+    animation: fadeIn .5s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
+
+    transform: translateX(-1500px);
+    animation: roadRunnerIn .3s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
+}
+
+.loginContent {
+    display: flex;
+    gap: 70px;
+    align-items: center;
+    flex-direction: column;
+    border-radius: 12px;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #476FD6;
+    width: 45%;
+    height: 50%;
+    background: rgb(14, 185, 255);
+    background: linear-gradient(90deg, rgba(14, 185, 255, 1) 0%, rgba(9, 232, 250, 1) 36%, rgba(0, 254, 255, 1) 100%);
+}
+
+.loginContent h1 {
+    font-size: 2.2rem;
+    text-transform: uppercase;
+    color: #0D0338;
+    font-weight: bold;
+    margin: 0;
+    letter-spacing: 2px;
+}
+
+.loginForm {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    gap: 12px;
+    gap: 0.6rem;
+    align-items: center;
+    width: 100%;
+}
+
+.loginForm label {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #0D0338;
+    margin-top: 0.8rem;
+}
+
+.loginForm input {
+    width: 50%;
+    height: 2.5rem;
+    border: 1px solid #4AC6ED;
+    border-radius: 6px;
+    font-size: 1.8rem;
+}
+
+.btnSubmit {
+    width: 40%;
+    height: 2rem;
+    border: none;
+    background-color: #008CEB;
+    border-radius: 20px;
+    color: white;
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-top: 1rem;
+    transition: 500ms;
+    cursor: pointer;
+    height: 2.5rem;
+}
+
+.btnSubmit:hover {
+    background-color: #0D0338;
+    color: #4AC6ED;
+}
+
+@keyframes fadeIn {
+    0% {
+        background: rgba(0, 0, 0, .0);
+    }
+
+    100% {
+        background: rgba(0, 0, 0, .7);
+    }
+}
+
+@keyframes roadRunnerIn {
+    0% {
+        transform: translateX(-1500px) skewX(30deg) scaleX(1.3);
+    }
+
+    70% {
+        transform: translateX(30px) skewX(0deg) scaleX(.9);
+    }
+
+    100% {
+        transform: translateX(0px) skewX(0deg) scaleX(1);
+    }
+}
