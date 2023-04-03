@@ -1,52 +1,136 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import styles from './Register.module.css';
 import { ModalContext } from '../../contexts/ModalContext';
+import * as authService from '../../services/authService';
+import { AuthContext } from '../../contexts/AuthContext';
+import { useNavigate } from 'react-router-dom';
+import { checkRequiredInputField, validatePassAndRepass, validatePassword, validatePhoneNumber } from '../../utils/validate';
 
 
 export const Register = () => {
-    const {isOpen, modalRef} = useContext(ModalContext);
+    const { isOpen, modalRef } = useContext(ModalContext);
+    const { onLogin } = useContext(AuthContext);
+    const navigate = useNavigate();
+
+    const [errors, setErrors] = useState({
+        email: '',
+        password: '',
+        rePassword: '',
+        firstName: '',
+        lastName: '',
+        phoneNumber: '',
+    });
+
+    const [formData, setFormData] = useState({
+        email: '',
+        password: '',
+        rePassword: '',
+        firstName: '',
+        lastName: '',
+        phoneNumber: '',
+        town: '',
+    });
+
+    const onChange = (e) => {
+        setFormData(state => ({
+            ...state,
+            [e.target.name]: e.target.value
+        }))
+    }
+
+    const onSubmit = (e) => {
+        e.preventDefault();
+        try {
+            authService.register(formData.email, formData.password, formData.firstName, formData.lastName, formData.phoneNumber, formData.town)
+                .then(data => {
+                    onLogin(data)
+                });
+            navigate('/');
+        } catch (error) {
+            alert(error.message)
+        }
+
+    }
+
+    const onBlur = (e) => {
+        if (e.target.name === 'email' || e.target.name === 'firstName' || e.target.name === 'lastName') {
+            setErrors(state => ({
+                ...state,
+                [e.target.name]: checkRequiredInputField(e.target.name, formData[e.target.name])
+            }))
+        } else if (e.target.name === 'password') {
+            setErrors(state => ({
+                ...state,
+                password: validatePassword(formData.password)
+            }))
+        } else if (e.target.name === 'rePassword') {
+            setErrors(state => ({
+                ...state,
+                rePassword: validatePassAndRepass(formData.password, formData.rePassword)
+            }))
+        } else if (e.target.name === 'phoneNumber') {
+            setErrors(state => ({
+                ...state,
+                phoneNumber: validatePhoneNumber(formData.phoneNumber)
+            }))
+        }
+    }
 
     return (
         isOpen && <section ref={modalRef} id="registerModal" className={styles.modal}>
-        <div className={styles.registerContent}>
-            <h1>Register</h1>
-            <form className={styles.registerForm}>
-                <label htmlFor="mail">
-                    <i className="fas fa-envelope" /> E-mail
-                </label>
-                <input type="email" name="email" id="mail" />
-                <label htmlFor="pass">
-                    <i className="fas fa-key" /> Password
-                </label>
-                <input type="password" name="password" id="pass" />
-                <label htmlFor="rePass">
-                    <i className="fas fa-lock" /> Confirm password
-                </label>
-                <input type="password" name="rePassword" id="rePass" />
-                <label htmlFor="fName">
-                    <i className="fas fa-id-card" /> First name
-                </label>
-                <input type="text" name="firstName" id="fName" />
-                <label htmlFor="lName">
-                    <i className="fas fa-id-card" /> Last name
-                </label>
-                <input type="text" name="lastName" id="lName" />
-                <label htmlFor="mobile">
-                    <i className="fas fa-phone" /> Phone number
-                </label>
-                <input type="text" name="phoneNumber" id="mobile" />
-                <label htmlFor="city">
-                    <i className="fas fa-city" /> Town
-                </label>
-                <select name="town" id="city">
-                    <option value="id1">Sofia</option>
-                    <option value="id2">Plovdiv</option>
-                    <option value="id3">Varna</option>
-                    <option value="id4">Burgas</option>
-                </select>
-                <button className={styles.btnSubmit}>Register</button>
-            </form>
-        </div>
-    </section>
+            <div className={styles.registerContent}>
+                <h1>Register</h1>
+                <form className={styles.registerForm} onSubmit={onSubmit}>
+                    <label htmlFor="mail">
+                        <i className="fas fa-envelope" /> E-mail
+                    </label>
+                    <input type="email" name="email" id="mail" onChange={onChange} onBlur={onBlur} />
+                    {errors.email && <p className={styles.error}>{errors.email}</p>}
+
+                    <label htmlFor="pass">
+                        <i className="fas fa-key" /> Password
+                    </label>
+                    <input type="password" name="password" id="pass" onChange={onChange} onBlur={onBlur} />
+                    {errors.password && <p className={styles.error}>{errors.password}</p>}
+
+                    <label htmlFor="rePass">
+                        <i className="fas fa-lock" /> Confirm password
+                    </label>
+                    <input type="password" name="rePassword" id="rePass" onChange={onChange} onBlur={onBlur} />
+                    {errors.rePassword && <p className={styles.error}>{errors.rePassword}</p>}
+
+                    <label htmlFor="fName">
+                        <i className="fas fa-id-card" /> First name
+                    </label>
+                    <input type="text" name="firstName" id="fName" onChange={onChange} onBlur={onBlur} />
+                    {errors.firstName && <p className={styles.error}>{errors.firstName}</p>}
+
+                    <label htmlFor="lName">
+                        <i className="fas fa-id-card" /> Last name
+                    </label>
+                    <input type="text" name="lastName" id="lName" onChange={onChange} onBlur={onBlur} />
+                    {errors.lastName && <p className={styles.error}>{errors.lastName}</p>}
+
+                    <label htmlFor="mobile">
+                        <i className="fas fa-phone" /> Phone number
+                    </label>
+                    <input type="text" name="phoneNumber" id="mobile" onChange={onChange} onBlur={onBlur} />
+                    {errors.phoneNumber && <p className={styles.error}>{errors.phoneNumber}</p>}
+
+                    <label htmlFor="city">
+                        <i className="fas fa-city" /> Town
+                    </label>
+                    <select name="town" id="city" onChange={onChange}>
+                        <option value="id1">Sofia</option>
+                        <option value="id2">Plovdiv</option>
+                        <option value="id3">Varna</option>
+                        <option value="id4">Burgas</option>
+                    </select>
+                    <button className={styles.btnSubmit} disabled={errors.email || errors.password || errors.rePassword || errors.firstName || errors.lastName || errors.phoneNumber}>
+                        Register
+                    </button>
+                </form>
+            </div>
+        </section>
     )
 }
