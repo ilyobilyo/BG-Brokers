@@ -1,4 +1,4 @@
-import { Route, Routes } from 'react-router-dom';
+import { Outlet, Route, Routes } from 'react-router-dom';
 import './App.css';
 import { Header } from './components/header/Header';
 import { OfferLocationProvider } from './contexts/OfferLocationContext';
@@ -7,22 +7,26 @@ import { Register } from './components/register/Register';
 import { Home } from './components/home/Home';
 import { ModalContextProvider } from './contexts/ModalContext';
 import { Login } from './components/login/Login';
+import { AuthProvider } from './contexts/AuthContext';
 
 function App() {
   return (
     <div className="App">
-      <Header />
-      <ModalContextProvider>
-        <TypeProvider>
-          <OfferLocationProvider>
-            <Home />
-            <Routes>
-              <Route path="/register" element={<Register />} />
-              <Route path="/login" element={<Login />} />
-            </Routes>
-          </OfferLocationProvider>
-        </TypeProvider>
-      </ModalContextProvider>
+      <AuthProvider>
+        <Header />
+        <ModalContextProvider>
+          <TypeProvider>
+            <OfferLocationProvider>
+              <Home />
+              <Routes>
+                <Route path="/" element={<Outlet />}/>
+                <Route path="/register" element={<Register />} />
+                <Route path="/login" element={<Login />} />
+              </Routes>
+            </OfferLocationProvider>
+          </TypeProvider>
+        </ModalContextProvider>
+      </AuthProvider>
     </div>
   );
 }
