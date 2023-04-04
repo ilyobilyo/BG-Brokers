@@ -19,6 +19,7 @@ export const Register = () => {
         firstName: '',
         lastName: '',
         phoneNumber: '',
+        serviceError: '',
     });
 
     const [formData, setFormData] = useState({
@@ -40,16 +41,18 @@ export const Register = () => {
 
     const onSubmit = (e) => {
         e.preventDefault();
-        try {
-            authService.register(formData.email, formData.password, formData.firstName, formData.lastName, formData.phoneNumber, formData.town)
-                .then(data => {
-                    onLogin(data)
-                });
-            navigate('/');
-        } catch (error) {
-            alert(error.message)
-        }
 
+        authService.register(formData.email, formData.password, formData.firstName, formData.lastName, formData.phoneNumber, formData.town)
+            .then(data => {
+                onLogin(data)
+                navigate('/');
+            })
+            .catch((error) => {
+                setErrors(state => ({
+                    ...state,
+                    serviceError: error.message
+                }))
+            });
     }
 
     const onBlur = (e) => {
@@ -81,6 +84,8 @@ export const Register = () => {
             <div className={styles.registerContent}>
                 <h1>Register</h1>
                 <form className={styles.registerForm} onSubmit={onSubmit}>
+                    {errors.serviceError && <p className={styles.error}>{errors.serviceError}</p>}
+
                     <label htmlFor="mail">
                         <i className="fas fa-envelope" /> E-mail
                     </label>
