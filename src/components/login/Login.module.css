@@ -18,7 +18,7 @@
 
 .loginContent {
     display: flex;
-    gap: 70px;
+    gap: 40px;
     align-items: center;
     flex-direction: column;
     border-radius: 12px;
@@ -59,7 +59,7 @@
 
 .loginForm input {
     width: 50%;
-    height: 2.5rem;
+    height: 2rem;
     border: 1px solid #4AC6ED;
     border-radius: 6px;
     font-size: 1.8rem;
@@ -83,6 +83,18 @@
 .btnSubmit:hover {
     background-color: #0D0338;
     color: #4AC6ED;
+}
+
+.error {
+    display: inline-block;
+    color: red;
+    font-weight: bold;
+    font-size: 1rem;
+    border-radius: 6px;
+    width: 50%;
+    text-align: center;
+    padding: 4px 8px;
+    margin: 0;
 }
 
 @keyframes fadeIn {
