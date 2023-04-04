@@ -8,6 +8,7 @@ import { Home } from './components/home/Home';
 import { ModalContextProvider } from './contexts/ModalContext';
 import { Login } from './components/login/Login';
 import { AuthProvider } from './contexts/AuthContext';
+import { Logout } from './components/logout/Logout';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
                 <Route path="/" element={<Outlet />}/>
                 <Route path="/register" element={<Register />} />
                 <Route path="/login" element={<Login />} />
+                <Route path="/logout" element={<Logout />} />
               </Routes>
             </OfferLocationProvider>
           </TypeProvider>
