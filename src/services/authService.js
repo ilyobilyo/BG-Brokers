@@ -2,8 +2,6 @@ import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } f
 import { doc, setDoc, getDoc } from "firebase/firestore";
 import { auth, db } from "../firebase";
 
-
-
 export const register = (email, password, firstName, lastName, phoneNumber, town) => {
     return createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
@@ -12,7 +10,8 @@ export const register = (email, password, firstName, lastName, phoneNumber, town
                 firstName,
                 lastName,
                 phoneNumber,
-                town
+                town,
+                roles: ['user']
             }
             setDoc(doc(db, "UserData", userCredential.user.uid), data);
 
@@ -41,6 +40,7 @@ export const login = (email, password) => {
                 lastName: docData.lastName,
                 phoneNumber: docData.phoneNumber,
                 town: docData.town,
+                roles: docData.roles
             };
 
             return userData;
@@ -57,4 +57,8 @@ export const logout = () => {
         }).catch((error) => {
             throw new Error(error);
         });
+}
+
+export const getUserById = () => {
+
 }
