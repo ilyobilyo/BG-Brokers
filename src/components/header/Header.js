@@ -1,10 +1,11 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import styles from './Header.module.css';
 import { useContext } from 'react';
 import { AuthContext } from '../../contexts/AuthContext';
 
 export const Header = () => {
     const { isAuthenticated } = useContext(AuthContext);
+    const location = useLocation();
 
     return (
         <header>
@@ -22,16 +23,19 @@ export const Header = () => {
                     <li>
                         <Link to="/">Contacts</Link>
                     </li>
+                    <li>
+                        <Link to="/create" state={{ background: location }}>Create</Link>
+                    </li>
                     {isAuthenticated
                         ? <li>
                             <Link to="/logout">Logout</Link>
                         </li>
                         : <>
                             <li>
-                                <Link to="/login">Login</Link>
+                                <Link to="/login" state={{ background: location }}>Login</Link>
                             </li>
                             <li>
-                                <Link to="/register">Register</Link>
+                                <Link to="/register" state={{ background: location }}>Register</Link>
                             </li>
                         </>
                     }
