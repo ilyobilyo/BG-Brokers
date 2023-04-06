@@ -4,7 +4,7 @@ import { useContext } from 'react';
 import { AuthContext } from '../../contexts/AuthContext';
 
 export const Header = () => {
-    const { isAuthenticated } = useContext(AuthContext);
+    const { isAuthenticated, user } = useContext(AuthContext);
     const location = useLocation();
 
     return (
@@ -23,13 +23,20 @@ export const Header = () => {
                     <li>
                         <Link to="/">Contacts</Link>
                     </li>
-                    <li>
-                        <Link to="/create" state={{ background: location }}>Create</Link>
-                    </li>
                     {isAuthenticated
-                        ? <li>
-                            <Link to="/logout">Logout</Link>
-                        </li>
+                        ? <>
+                            <li>
+                                <Link to="/create" state={{ background: location }}>Create</Link>
+                            </li>
+                            {user.roles.includes('admin') &&
+                                <li>
+                                    <Link to="/manageUsers" >Manage users</Link>
+                                </li>
+                            }
+                            <li>
+                                <Link to="/logout">Logout</Link>
+                            </li>
+                        </>
                         : <>
                             <li>
                                 <Link to="/login" state={{ background: location }}>Login</Link>
