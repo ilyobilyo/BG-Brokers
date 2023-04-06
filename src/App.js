@@ -25,18 +25,19 @@ function App() {
             <OfferLocationProvider>
               <Routes>
                 <Route path="/" element={<Home />}>
-                  <Route path="/register" element={<Register />} />
-                  <Route path="/login" element={<Login />} />
-                  <Route path="/create" element={<CreateOffer />} />
+                  <Route path="register" element={<Register />} />
+                  <Route path="login" element={<Login />} />
+                  <Route path="create" element={<CreateOffer />} />
                 </Route>
+                <Route path="/manageUsers" element={<ManageUsers />} />
                 <Route path="/logout" element={<Logout />} />
-                <Route path="/private/manageUsers" element={<ManageUsers />} />
               </Routes>
               {background && (
                 <Routes>
                   <Route path="/register" element={<Register />} />
                   <Route path="/login" element={<Login />} />
                   <Route path="/create" element={<CreateOffer />} />
+                  <Route path="/manageUsers" element={<ManageUsers />} />
                 </Routes>
               )}
             </OfferLocationProvider>
