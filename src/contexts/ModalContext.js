@@ -10,9 +10,9 @@ export const ModalContextProvider = ({ children }) => {
     
     useEffect(() => {
         const handleClickOutside = (event) => {
-            if (event.target.tagName === 'SECTION') {
+            if (event.target.className.includes('modal')) {
                 navigate('/');
-            }
+            } 
         };
 
         document.addEventListener("mousedown", handleClickOutside);
