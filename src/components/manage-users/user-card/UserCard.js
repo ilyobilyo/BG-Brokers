@@ -1,6 +1,6 @@
 import styles from './UserCard.module.css'
 
-export const UserCard = () => {
+export const UserCard = ({user}) => {
     return (
         <div className={styles.cardContiner}>
             <div className={styles.userImageContainer}>
@@ -11,31 +11,31 @@ export const UserCard = () => {
                     <label>
                         <i className="fas fa-user" /> User Full name:
                     </label>
-                    <p>Iliyan Iliev</p>
+                    <p>{user.name}</p>
                 </div>
                 <div className={styles.infoContainer}>
                     <label>
                         <i className="fas fa-envelope" /> User Email:
                     </label>
-                    <p>ilito@abv.bg</p>
+                    <p>{user.email}</p>
                 </div>
                 <div className={styles.infoContainer}>
                     <label>
                         <i className="fas fa-phone" /> User Phone number:
                     </label>
-                    <p>0895462156</p>
+                    <p>{user.phoneNumber}</p>
                 </div>
                 <div className={styles.infoContainer}>
                     <label>
                         <i className="fas fa-user-shield" /> User Roles:
                     </label>
-                    <p>Broker, Admin</p>
+                    <p>{user.roles.join(', ')}</p>
                 </div>
                 <div className={styles.infoContainer}>
                     <label>
                         <i className="fas fa-city" /> User Town:
                     </label>
-                    <p>Varna</p>
+                    <p>{user.town}</p>
                 </div>
             </div>
             <div className={styles.actions}>
