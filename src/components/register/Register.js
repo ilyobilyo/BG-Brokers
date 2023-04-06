@@ -5,12 +5,14 @@ import * as authService from '../../services/authService';
 import { AuthContext } from '../../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { checkRequiredInputField, validatePassAndRepass, validatePassword, validatePhoneNumber } from '../../utils/validate';
+import { OfferLocationContext } from '../../contexts/OfferLocationContext';
 
 
 export const Register = () => {
     const { isOpen, modalRef } = useContext(ModalContext);
     const { onLogin } = useContext(AuthContext);
     const navigate = useNavigate();
+    const {towns} = useContext(OfferLocationContext);
 
     const [errors, setErrors] = useState({
         email: '',
@@ -126,10 +128,7 @@ export const Register = () => {
                         <i className="fas fa-city" /> Town
                     </label>
                     <select name="town" id="city" onChange={onChange}>
-                        <option value="id1">Sofia</option>
-                        <option value="id2">Plovdiv</option>
-                        <option value="id3">Varna</option>
-                        <option value="id4">Burgas</option>
+                        {towns.map(x => <option key={x.name} value={x.name}>{x.name}</option>)}
                     </select>
                     <button className={styles.btnSubmit} disabled={errors.email || errors.password || errors.rePassword || errors.firstName || errors.lastName || errors.phoneNumber}>
                         Register
