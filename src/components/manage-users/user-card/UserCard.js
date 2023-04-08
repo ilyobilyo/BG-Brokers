@@ -4,7 +4,7 @@ export const UserCard = ({user}) => {
     return (
         <div className={styles.cardContiner}>
             <div className={styles.userImageContainer}>
-                <img src="./img/bedroom.jpg" alt="UserImg" />
+                <img src="../../../images/livingRoom.jpg" alt="UserImg" />
             </div>
             <div className={styles.userInfo}>
                 <div className={styles.infoContainer}>
