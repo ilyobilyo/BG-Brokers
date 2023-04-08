@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 export const ModalContext = createContext();
 
-export const ModalContextProvider = ({ children }) => {
+export const ModalProvider = ({ children }) => {
     const [isOpen, setIsOpen] = useState(true);
     const modalRef = useRef();
     const navigate = useNavigate();
