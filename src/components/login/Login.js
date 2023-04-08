@@ -1,5 +1,4 @@
 import styles from './Login.module.css';
-import { ModalContext } from '../../contexts/ModalContext';
 import { useContext, useState } from 'react';
 import { AuthContext } from '../../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
@@ -8,7 +7,6 @@ import * as authService from '../../services/authService';
 import { checkRequiredInputField, validatePassword } from '../../utils/validate';
 
 export const Login = () => {
-    const { isOpen, modalRef } = useContext(ModalContext);
     const { onLogin } = useContext(AuthContext);
     const navigate = useNavigate();
 
@@ -60,7 +58,7 @@ export const Login = () => {
     }
 
     return (
-        isOpen && <section ref={modalRef} id="loginModal" className={styles.modal}>
+        <section id="login" className={styles.loginSection}>
             <div className={styles.loginContent}>
                 <h1>Login</h1>
                 <form className={styles.loginForm} onSubmit={onSubmit}>
@@ -77,7 +75,7 @@ export const Login = () => {
                     <input type="password" name="password" id="pass" onChange={onChange} onBlur={onBlur} />
                     {errors.password && <p className={styles.error}>{errors.password}</p>}
 
-                    <button className={styles.btnSubmit}>Register</button>
+                    <button className={styles.btnSubmit}>Login</button>
                 </form>
             </div>
         </section>
