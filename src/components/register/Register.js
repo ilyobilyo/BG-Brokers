@@ -1,6 +1,5 @@
 import { useContext, useState } from 'react';
 import styles from './Register.module.css';
-import { ModalContext } from '../../contexts/ModalContext';
 import * as authService from '../../services/authService';
 import { AuthContext } from '../../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
@@ -9,7 +8,6 @@ import { OfferLocationContext } from '../../contexts/OfferLocationContext';
 
 
 export const Register = () => {
-    const { isOpen, modalRef } = useContext(ModalContext);
     const { onLogin } = useContext(AuthContext);
     const navigate = useNavigate();
     const {towns} = useContext(OfferLocationContext);
@@ -82,7 +80,7 @@ export const Register = () => {
     }
 
     return (
-        isOpen && <section ref={modalRef} id="registerModal" className={styles.modal}>
+        <section id="register" className={styles.registerSection}>
             <div className={styles.registerContent}>
                 <h1>Register</h1>
                 <form className={styles.registerForm} onSubmit={onSubmit}>
