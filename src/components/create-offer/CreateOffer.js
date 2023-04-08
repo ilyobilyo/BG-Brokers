@@ -1,16 +1,18 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import styles from './CreateOffer.module.css';
 import { TypeContext } from '../../contexts/TypeContext';
 import { OfferLocationContext } from '../../contexts/OfferLocationContext';
 import { InputField } from './input-field/InputField';
 import { SelectField } from './select-field/SelectField';
 import { Textarea } from './textarea/Textarea';
+import * as userService from '../../services/userService';
 
 
 export const CreateOffer = () => {
     const {types} = useContext(TypeContext);
     const {towns, hoods, getTownHoods} = useContext(OfferLocationContext);
 
+    const [brokers, setBrokers] = useState([]);
     const [formData, setFormData] = useState({
         title: '',
         town: '',
@@ -36,6 +38,15 @@ export const CreateOffer = () => {
         description: '',
         images: []
     })
+
+    useEffect(() => {
+        userService.getAllUsers()
+        .then(data => {
+            setBrokers(data);
+        })
+    }, [])
+
+    
 
     const onChange = (e) => {
         setFormData(state => ({
@@ -91,15 +102,7 @@ export const CreateOffer = () => {
 
                     <SelectField elementId='offer-heating' labelText='Heating' name='heating' options={types.heating} onChangeHandler={onChange}/>
                     
-                    {/*TODO: Create GetBroker from db fuctions */}
-                    <div className={styles.inputWrapper}>
-                        <label htmlFor="offer-broker">Broker</label>
-                        <select name="broker" id="offer-broker">
-                            <option value="id1">Iliyan Iliev</option>
-                            <option value="id2">John Cena</option>
-                            <option value="id3">Petur Asenov</option>
-                        </select>
-                    </div>
+                    <SelectField elementId='offer-broker' labelText='Broker' name='broker' options={brokers} hasOptionId={true} onChangeHandler={onChange}/>
 
                     <InputField elementId='offer-address' labelText='Address' inputType='text' name='address' onChanegeHandler={onChange}/>
                    
