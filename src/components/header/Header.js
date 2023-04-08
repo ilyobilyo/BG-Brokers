@@ -23,8 +23,8 @@ export const Header = () => {
                     <li>
                         <Link to="/">Contacts</Link>
                     </li>
-                    {isAuthenticated
-                        ? <>
+                    {isAuthenticated &&
+                        <>
                             <li>
                                 <Link to="/create" state={{ background: location }}>Create</Link>
                             </li>
@@ -35,14 +35,6 @@ export const Header = () => {
                             }
                             <li>
                                 <Link to="/logout">Logout</Link>
-                            </li>
-                        </>
-                        : <>
-                            <li>
-                                <Link to="/login" state={{ background: location }}>Login</Link>
-                            </li>
-                            <li>
-                                <Link to="/register" state={{ background: location }}>Register</Link>
                             </li>
                         </>
                     }
