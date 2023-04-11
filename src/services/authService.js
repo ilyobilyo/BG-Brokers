@@ -2,17 +2,21 @@ import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } f
 import { doc, setDoc, getDoc } from "firebase/firestore";
 import { auth, db } from "../firebase";
 
-export const register = (email, password, firstName, lastName, phoneNumber, town) => {
+export const register = (email, password, firstName, lastName, phoneNumber, town, img, uploadFile) => {
     return createUserWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-            const data = {
+        .then(async (userCredential) =>  {
+            
+            let data = {
                 email: userCredential.user.email,
                 firstName,
                 lastName,
                 phoneNumber,
                 town,
-                roles: ['user']
+                roles: ['user'],
             }
+            
+            data.img = await uploadFile(img)
+            
             setDoc(doc(db, "UserData", userCredential.user.uid), data);
 
             data.id = userCredential.user.uid;
@@ -57,8 +61,4 @@ export const logout = () => {
         }).catch((error) => {
             throw new Error(error);
         });
-}
-
-export const getUserById = () => {
-
 }
