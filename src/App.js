@@ -25,6 +25,7 @@ function App() {
         <ModalProvider>
           <TypeProvider>
             <OfferLocationProvider>
+              <ImageProvider>
                 <Routes>
                   <Route path="/" element={<Home />}>
                     <Route path="/create" element={<CreateOffer />} />
@@ -41,6 +42,7 @@ function App() {
                     <Route path="/create" element={<CreateOffer />} />
                   </Routes>
                 )}
+              </ImageProvider>
             </OfferLocationProvider>
           </TypeProvider>
         </ModalProvider>
