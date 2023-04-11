@@ -12,7 +12,8 @@ export const getAllUsers = async () => {
             email: data.email,
             phoneNumber: data.phoneNumber,
             town: data.town,
-            roles: data.roles
+            roles: data.roles,
+            img: data.img
         }
     })
 
