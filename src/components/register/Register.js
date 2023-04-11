@@ -5,12 +5,15 @@ import { AuthContext } from '../../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { checkRequiredInputField, validatePassAndRepass, validatePassword, validatePhoneNumber } from '../../utils/validate';
 import { OfferLocationContext } from '../../contexts/OfferLocationContext';
+import { ImageContext } from '../../contexts/ImageContext';
 
 
 export const Register = () => {
     const { onLogin } = useContext(AuthContext);
+    const { towns } = useContext(OfferLocationContext);
+    const {uploadFile} = useContext(ImageContext);
+
     const navigate = useNavigate();
-    const {towns} = useContext(OfferLocationContext);
 
     const [errors, setErrors] = useState({
         email: '',
@@ -30,6 +33,7 @@ export const Register = () => {
         lastName: '',
         phoneNumber: '',
         town: '',
+        img: null,
     });
 
     const onChange = (e) => {
@@ -39,10 +43,17 @@ export const Register = () => {
         }))
     }
 
+    const onChangeFile = (e) => {
+        setFormData(state => ({
+            ...state,
+            img: e.target.files[0]
+        }))
+    }
+
     const onSubmit = (e) => {
         e.preventDefault();
 
-        authService.register(formData.email, formData.password, formData.firstName, formData.lastName, formData.phoneNumber, formData.town)
+        authService.register(formData.email, formData.password, formData.firstName, formData.lastName, formData.phoneNumber, formData.town, formData.img, uploadFile)
             .then(data => {
                 onLogin(data)
                 navigate('/');
@@ -83,7 +94,7 @@ export const Register = () => {
         <section id="register" className={styles.registerSection}>
             <div className={styles.registerContent}>
                 <h1>Register</h1>
-                <form className={styles.registerForm} onSubmit={onSubmit}>
+                <form className={styles.registerForm} onSubmit={onSubmit} encType="multipart/form-data">
                     {errors.serviceError && <p className={styles.error}>{errors.serviceError}</p>}
 
                     <label htmlFor="mail">
@@ -128,6 +139,10 @@ export const Register = () => {
                     <select name="town" id="city" onChange={onChange}>
                         {towns.map(x => <option key={x.name} value={x.name}>{x.name}</option>)}
                     </select>
+                    <label htmlFor="user-img">
+                        User image
+                    </label>
+                    <input type='file' name='img' id='user-img' onChange={onChangeFile}/>
                     <button className={styles.btnSubmit} disabled={errors.email || errors.password || errors.rePassword || errors.firstName || errors.lastName || errors.phoneNumber}>
                         Register
                     </button>
