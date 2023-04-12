@@ -6,7 +6,7 @@ export const OfferCard = ({offer}) => {
     return (
         <article className={styles.card}>
             <div className={styles.imgContainer}>
-                <img src='../../../images/livingRoom.jpg' alt="offer-img" />
+                <img src={offer.images[0]} alt="offer-img" />
             </div>
             <div className={styles.cardInfo}>
                 <h1 className={styles.cardTitle}>{offer.title}</h1>
