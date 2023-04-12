@@ -12,7 +12,7 @@ import { Logout } from './components/logout/Logout';
 import { CreateOffer } from './components/create-offer/CreateOffer';
 import { ManageUsers } from './components/manage-users/ManageUser';
 import { PrivateGuard } from './components/common/PrivateGuard';
-import { ImageProvider } from './contexts/ImageContext';
+import { OfferProvider } from './contexts/OfferContext';
 
 function App() {
   const location = useLocation();
@@ -25,7 +25,7 @@ function App() {
         <ModalProvider>
           <TypeProvider>
             <OfferLocationProvider>
-              <ImageProvider>
+              <OfferProvider>
                 <Routes>
                   <Route path="/" element={<Home />}>
                     <Route path="/create" element={<CreateOffer />} />
@@ -42,7 +42,7 @@ function App() {
                     <Route path="/create" element={<CreateOffer />} />
                   </Routes>
                 )}
-              </ImageProvider>
+              </OfferProvider>
             </OfferLocationProvider>
           </TypeProvider>
         </ModalProvider>
