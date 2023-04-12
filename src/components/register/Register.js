@@ -5,13 +5,11 @@ import { AuthContext } from '../../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { checkRequiredInputField, validatePassAndRepass, validatePassword, validatePhoneNumber } from '../../utils/validate';
 import { OfferLocationContext } from '../../contexts/OfferLocationContext';
-import { ImageContext } from '../../contexts/ImageContext';
 
 
 export const Register = () => {
     const { onLogin } = useContext(AuthContext);
     const { towns } = useContext(OfferLocationContext);
-    const {uploadFile} = useContext(ImageContext);
 
     const navigate = useNavigate();
 
@@ -53,7 +51,7 @@ export const Register = () => {
     const onSubmit = (e) => {
         e.preventDefault();
 
-        authService.register(formData.email, formData.password, formData.firstName, formData.lastName, formData.phoneNumber, formData.town, formData.img, uploadFile)
+        authService.register(formData.email, formData.password, formData.firstName, formData.lastName, formData.phoneNumber, formData.town, formData.img)
             .then(data => {
                 onLogin(data)
                 navigate('/');
