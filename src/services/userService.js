@@ -1,4 +1,4 @@
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, doc, getDoc } from "firebase/firestore";
 import { db } from "../firebase";
 
 export const getAllUsers = async () => {
@@ -18,4 +18,15 @@ export const getAllUsers = async () => {
     })
 
     return data;
+}
+
+export const getUserById = async (userId) => {
+    const snap = await getDoc(doc(db, 'UserData', userId));
+
+    if (snap.exists()) {
+        return snap.data();
+    } else {
+        throw new Error('User does not exist');
+    }
+
 }
