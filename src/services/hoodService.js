@@ -3,7 +3,6 @@ import { db } from "../firebase";
 
 const hoodRef = collection(db, 'Hoods');
 
-
 export async function GetHoodsForTown(townId) {
     const q = query(hoodRef, where("townId", "==", townId));
 

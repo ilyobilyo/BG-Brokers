@@ -1,8 +1,9 @@
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { doc, setDoc, getDoc } from "firebase/firestore";
 import { auth, db } from "../firebase";
+import { uploadFile } from "../utils/uploadImg";
 
-export const register = (email, password, firstName, lastName, phoneNumber, town, img, uploadFile) => {
+export const register = (email, password, firstName, lastName, phoneNumber, town, img) => {
     return createUserWithEmailAndPassword(auth, email, password)
         .then(async (userCredential) =>  {
             
