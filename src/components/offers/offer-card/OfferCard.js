@@ -1,10 +1,17 @@
+import { useLocation, useNavigate } from 'react-router-dom';
 import styles from './OfferCard.module.css';
 
 
 export const OfferCard = ({offer}) => {
+    const navigate = useNavigate();
+    const location = useLocation();
+
+    const clickHandler = () => {
+        navigate(`/offer/${offer.id}`, {state: { background: location }})
+    }
 
     return (
-        <article className={styles.card}>
+        <article className={styles.card} onClick={clickHandler}>
             <div className={styles.imgContainer}>
                 <img src={offer.images[0]} alt="offer-img" />
             </div>
