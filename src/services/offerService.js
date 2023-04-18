@@ -1,4 +1,4 @@
-import { collection, addDoc, query, orderBy, limit, getDocs, } from "firebase/firestore";
+import { collection, addDoc, query, orderBy, limit, getDocs, updateDoc, doc, } from "firebase/firestore";
 import { db } from "../firebase";
 import { uploadFile } from "../utils/uploadImg";
 
@@ -24,7 +24,7 @@ export const getAllOffers = async () => {
 
     const data = documentSnapshots.docs.map(x => {
         const data = x.data();
-        const obj = {id: x.id};
+        const obj = { id: x.id };
         for (const key in data) {
             if (data[key]) {
                 obj[key] = data[key];
@@ -35,4 +35,28 @@ export const getAllOffers = async () => {
     })
 
     return data;
+}
+
+export const updateOffer = async (offerId, data) => {
+    try {
+        let images = [];
+
+        for (const file of data.images) {
+            if (typeof file !== 'string') {
+                images.push(await uploadFile(file))
+            } else{
+                images.push(file)
+            }
+        }
+
+        data.images = images
+
+        const offerRef = doc(db, "Offers", offerId);
+
+        await updateDoc(offerRef, data);
+
+        return data;
+    } catch (error) {
+        throw new Error(error.message)
+    }
 }
