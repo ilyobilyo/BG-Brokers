@@ -1,12 +1,15 @@
 import { useContext, useEffect, useState } from 'react'
 import styles from './OfferModal.module.css'
 import { OfferContext } from '../../contexts/OfferContext'
-import { useParams } from 'react-router-dom';
+import { Link, useLocation, useParams } from 'react-router-dom';
 import { ImageElement } from './image-element/ImageElement';
+import { AuthContext } from '../../contexts/AuthContext';
 
 export const OfferModal = () => {
     const { offers } = useContext(OfferContext);
+    const {isAuthenticated} = useContext(AuthContext);
     const { offerId } = useParams();
+    const location = useLocation();
 
     const [offer, setOffer] = useState({});
     const [isLoading, setIsloading] = useState(true);
@@ -16,10 +19,10 @@ export const OfferModal = () => {
     useEffect(() => {
         // Add a delay to allow the animation to complete before resetting the isAnimating state
         const timeoutId = setTimeout(() => {
-          setIsAnimating(false);
+            setIsAnimating(false);
         }, 300);
         return () => clearTimeout(timeoutId);
-      }, [currentIndex]);
+    }, [currentIndex]);
 
     const handleNext = () => {
         setIsAnimating(true);
@@ -56,13 +59,15 @@ export const OfferModal = () => {
                                 <img src={offer.images[currentIndex]} alt="" />
                             </div>
                             <div className={styles.imagesContainer} style={{
-                                transform: `translateX(-${currentIndex * 25}%)`,
+                                transform: `translateX(-${currentIndex * 255}px)`,
                                 transition: isAnimating ? 'transform 0.3s ease-in-out' : 'none'
                             }}>
                                 {offer.images.map((x, i) => <ImageElement key={i} src={x} index={i} onClickHandler={handleClickOnCertainImage} />)}
                             </div>
-                            <button onClick={handlePrev} >Prev</button>
-                            <button onClick={handleNext}>Next</button>
+                            <div className={styles.buttons}>
+                                <button className={styles.prev} onClick={handlePrev} >&#60; Prev</button>
+                                <button className={styles.next} onClick={handleNext}>Next &#62;</button>
+                            </div>
                         </div>
                         <div className={styles.offerInfo}>
                             <ul className={styles.infoList}>
@@ -140,6 +145,12 @@ export const OfferModal = () => {
                                     </div>
                                 }
                             </div>
+                            {isAuthenticated &&
+                            <div className={styles.actions}>
+                                <Link className={styles.edit} to={`/edit/${offerId}`} state={{ background: location }}><i className="fas fa-edit"></i> Edit</Link>
+                                <Link className={styles.delete} state={{ background: location }}><i className="fas fa-user-slash" /> Delete</Link>
+                            </div>
+                        }
                         </div>
                     </div>
                 </div>

@@ -58,12 +58,12 @@
 }
 
 .modalOfferContent .imagesContainer {
-    max-width: 100%;
+    /* max-width: 100%; */
     position: relative;
-    width: 100%;
+    width: 2300px;
     height: 30%;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     gap: 0.3rem;
     border-radius: 6px;
     overflow: hidden;
@@ -80,11 +80,11 @@
 }
 
 .modalOfferContent .modalImg {
-    max-width: 35%;
-    width: 100%;
+    width: 252px;
     border-radius: 6px;
     overflow: hidden;
     transform: translateX(0px);
+    object-fit: cover;
 }
 
 .modalOfferContent .mainImg img {
@@ -100,14 +100,16 @@
 .contentWrapper {
     display: flex;
     gap: 30px;
+    height: 100%;
 }
 
 .imageSection {
     width: 55%;
-    height: 42rem;
+    height: 43rem;
     display: flex;
     flex-direction: column;
     gap: 5px;
+    overflow: hidden;
 }
 
 .offerInfo {
@@ -173,6 +175,71 @@
     font-weight: bold;
     color: #0D0338;
     letter-spacing: 1px;
+}
+
+.buttons{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.buttons button{
+    width: 15%;
+    background-color: #008CEB;
+    border-radius: 20px;
+    color: white;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border: 1px solid #0d7ac4;
+    transition: 500ms;
+    cursor: pointer;
+    margin-top: 5px;
+}
+
+.buttons button:hover{
+    background-color: #0D0338;
+    color: #4AC6ED;
+}
+
+.actions{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.actions a{
+    width: 20%;
+    height: 100%;
+    padding: 2% 4%;
+    border-radius: 6px;
+    border: none;
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: white;
+    transition: 400ms;
+    text-decoration: none;
+    -webkit-box-shadow: 2px 2px 45px -6px rgba(0, 0, 0, 0.57);
+    -moz-box-shadow: 2px 2px 45px -6px rgba(0, 0, 0, 0.57);
+    box-shadow: 2px 2px 45px -6px rgba(0, 0, 0, 0.57)
+}
+
+.actions .edit{
+    background-color: #FFA103;
+}
+
+.actions .delete{
+    background-color: #F20C1D;
+}
+
+.actions .edit:hover {
+    background-color: #FF600A;
+    cursor: pointer;
+}
+
+.actions .delete:hover {
+    background-color: #A7032A;
+    cursor: pointer;
 }
 
 @keyframes fadeIn {
