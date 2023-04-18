@@ -14,6 +14,7 @@ import { ManageUsers } from './components/manage-users/ManageUser';
 import { PrivateGuard } from './components/common/PrivateGuard';
 import { OfferProvider } from './contexts/OfferContext';
 import { OfferModal } from './components/offer-modal/OfferModal';
+import { EditOffer } from './components/edit-offer/EditOffer';
 
 function App() {
   const location = useLocation();
@@ -31,6 +32,7 @@ function App() {
                   <Route path="/" element={<Home />}>
                     <Route path="/create" element={<CreateOffer />} />
                     <Route path='/offer/:offerId' element={<OfferModal />} />
+                    <Route path='/edit/:offerId' element={<EditOffer />} />
                   </Route>
                   <Route path='/account/register' element={<Register />} />
                   <Route path="/account/login" element={<Login />} />
@@ -43,6 +45,7 @@ function App() {
                   <Routes>
                     <Route path="/create" element={<CreateOffer />} />
                     <Route path='/offer/:offerId' element={<OfferModal />} />
+                    <Route path='/edit/:offerId' element={<EditOffer />} />
                   </Routes>
                 )}
               </OfferProvider>
