@@ -1,15 +1,17 @@
 import { useContext, useEffect, useState } from 'react'
 import styles from './OfferModal.module.css'
 import { OfferContext } from '../../contexts/OfferContext'
-import { Link, useLocation, useParams } from 'react-router-dom';
+import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { ImageElement } from './image-element/ImageElement';
 import { AuthContext } from '../../contexts/AuthContext';
+import * as offerService from '../../services/offerService';
 
 export const OfferModal = () => {
-    const { offers } = useContext(OfferContext);
-    const {isAuthenticated} = useContext(AuthContext);
+    const { offers, deleteOfferFromState } = useContext(OfferContext);
+    const { isAuthenticated } = useContext(AuthContext);
     const { offerId } = useParams();
     const location = useLocation();
+    const navigate = useNavigate();
 
     const [offer, setOffer] = useState({});
     const [isLoading, setIsloading] = useState(true);
@@ -23,6 +25,11 @@ export const OfferModal = () => {
         }, 300);
         return () => clearTimeout(timeoutId);
     }, [currentIndex]);
+
+    useEffect(() => {
+        setOffer(offers.find(x => x.id == offerId))
+        setIsloading(false);
+    }, [])
 
     const handleNext = () => {
         setIsAnimating(true);
@@ -38,10 +45,17 @@ export const OfferModal = () => {
         setCurrentIndex(currentIndex + index)
     }
 
-    useEffect(() => {
-        setOffer(offers.find(x => x.id == offerId))
-        setIsloading(false);
-    }, [])
+    const deleteHandler = (e) => {
+        e.preventDefault();
+
+        if (window.confirm('Are you sure you want to delete the offer?') == true) {
+            offerService.deleteOffer(offer)
+                .then(() => {
+                    deleteOfferFromState(offer.id);
+                    navigate('/');
+                })
+        }
+    }
 
     return (
         isLoading
@@ -146,11 +160,11 @@ export const OfferModal = () => {
                                 }
                             </div>
                             {isAuthenticated &&
-                            <div className={styles.actions}>
-                                <Link className={styles.edit} to={`/edit/${offerId}`} state={{ background: location }}><i className="fas fa-edit"></i> Edit</Link>
-                                <Link className={styles.delete} state={{ background: location }}><i className="fas fa-user-slash" /> Delete</Link>
-                            </div>
-                        }
+                                <div className={styles.actions}>
+                                    <Link className={styles.edit} to={`/edit/${offerId}`} state={{ background: location }}><i className="fas fa-edit"></i> Edit</Link>
+                                    <Link className={styles.delete} onClick={deleteHandler} state={{ background: location }}><i className="fas fa-user-slash" /> Delete</Link>
+                                </div>
+                            }
                         </div>
                     </div>
                 </div>
