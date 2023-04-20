@@ -27,8 +27,12 @@ export const OfferProvider = ({ children }) => {
         }
     }
 
+    const deleteOfferFromState = (offerId) => {
+        setOffers(offers.filter(x => x.id !== offerId));
+    }
+
     return (
-        <OfferContext.Provider value={{offers, addNewOffer, updateOffer}}>
+        <OfferContext.Provider value={{offers, addNewOffer, updateOffer, deleteOfferFromState}}>
             {children}
         </OfferContext.Provider>
     )
