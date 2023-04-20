@@ -1,6 +1,6 @@
-import { collection, addDoc, query, orderBy, limit, getDocs, updateDoc, doc, } from "firebase/firestore";
+import { collection, addDoc, query, orderBy, limit, getDocs, updateDoc, doc, deleteDoc, } from "firebase/firestore";
 import { db } from "../firebase";
-import { uploadFile } from "../utils/uploadImg";
+import { deleteFile, uploadFile } from "../utils/uploadImg";
 
 export const createOffer = async (data) => {
     let offerImages = [];
@@ -59,4 +59,12 @@ export const updateOffer = async (offerId, data) => {
     } catch (error) {
         throw new Error(error.message)
     }
+}
+
+export const deleteOffer = async (offer) => {
+    for (const img of offer.images) {
+        deleteFile(img);
+    }
+
+    await deleteDoc(doc(db, 'Offers', offer.id))
 }
