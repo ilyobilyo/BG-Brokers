@@ -1,4 +1,4 @@
-import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
+import { deleteObject, getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { storage } from "../firebase";
 
 export const uploadFile = (file) => {
@@ -20,4 +20,15 @@ export const uploadFile = (file) => {
             })
     })
     
+}
+
+export const deleteFile = async (imgUrl) => {
+    const imgRef = ref(storage, imgUrl)
+
+    deleteObject(imgRef)
+    .then(() => {
+        console.log('deleted !');
+    }).catch((error) => {
+        throw new Error(error.message)
+    });
 }
