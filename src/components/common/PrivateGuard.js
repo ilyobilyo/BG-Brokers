@@ -4,9 +4,9 @@ import { AuthContext } from '../../contexts/AuthContext';
 
 
 export const PrivateGuard = ({children}) => {
-    const { isAuthenticated } = useContext(AuthContext);
+    const { isAuthenticated, user } = useContext(AuthContext);
    
-    if (!isAuthenticated) {
+    if (!isAuthenticated || user.isDeleted) {
         return <Navigate to="/account/login" replace />
     }
 
