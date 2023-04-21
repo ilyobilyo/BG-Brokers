@@ -1,4 +1,4 @@
-import { collection, getDocs, doc, getDoc } from "firebase/firestore";
+import { collection, getDocs, doc, getDoc, updateDoc } from "firebase/firestore";
 import { db } from "../firebase";
 
 export const getAllUsers = async () => {
@@ -6,14 +6,17 @@ export const getAllUsers = async () => {
 
     const data = querySnapshot.docs.map(x => {
         const data = x.data();
-        return {
-            id: x.id,
-            name: `${data.firstName} ${data.lastName}`,
-            email: data.email,
-            phoneNumber: data.phoneNumber,
-            town: data.town,
-            roles: data.roles,
-            img: data.img
+
+        if (!data.isDeleted) {
+            return {
+                id: x.id,
+                name: `${data.firstName} ${data.lastName}`,
+                email: data.email,
+                phoneNumber: data.phoneNumber,
+                town: data.town,
+                roles: data.roles,
+                img: data.img
+            }
         }
     })
 
@@ -29,4 +32,28 @@ export const getUserById = async (userId) => {
         throw new Error('User does not exist');
     }
 
+}
+
+export const updateUser = async (userData) => {
+    const offerRef = doc(db, "UserData", userData.id);
+    debugger
+    await updateDoc(offerRef, userData);
+
+    return userData;
+}
+
+export const getRoles = async () => {
+    debugger
+    const querySnapshot = await getDocs(collection(db, 'Roles'));
+
+    const data = querySnapshot.docs.map(x => {
+        const data = x.data();
+
+        return {
+            value: data.name,
+            label: data.name,
+        }
+    })
+
+    return data;
 }
