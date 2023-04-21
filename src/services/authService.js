@@ -14,6 +14,7 @@ export const register = (email, password, firstName, lastName, phoneNumber, town
                 phoneNumber,
                 town,
                 roles: ['user'],
+                isDeleted: false
             }
             
             data.img = await uploadFile(img)
@@ -45,7 +46,8 @@ export const login = (email, password) => {
                 lastName: docData.lastName,
                 phoneNumber: docData.phoneNumber,
                 town: docData.town,
-                roles: docData.roles
+                roles: docData.roles,
+                isDeleted: docData.isDeleted
             };
 
             return userData;
