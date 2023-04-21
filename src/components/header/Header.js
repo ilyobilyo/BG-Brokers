@@ -23,7 +23,7 @@ export const Header = () => {
                     <li>
                         <Link to="/">Contacts</Link>
                     </li>
-                    {isAuthenticated &&
+                    {isAuthenticated && !user.isDeleted ?
                         <>
                             <li>
                                 <Link to="/create" state={{ background: location }}>Create</Link>
@@ -37,6 +37,7 @@ export const Header = () => {
                                 <Link to="/logout">Logout</Link>
                             </li>
                         </>
+                        : <></>
                     }
                 </ul>
             </nav>
