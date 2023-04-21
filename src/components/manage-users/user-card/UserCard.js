@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import styles from './UserCard.module.css'
 
 export const UserCard = ({user}) => {
@@ -39,9 +40,9 @@ export const UserCard = ({user}) => {
                 </div>
             </div>
             <div className={styles.actions}>
-                <button className={styles.edit}>
+                <Link className={styles.edit} to={`/editUser/${user.id}`}>
                     <i className="fas fa-user-edit" /> Edit
-                </button>
+                </Link>
                 <button className={styles.remove}>
                     <i className="fas fa-user-slash" /> Delete
                 </button>
