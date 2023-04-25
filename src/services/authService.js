@@ -47,6 +47,7 @@ export const login = (email, password) => {
                 phoneNumber: docData.phoneNumber,
                 town: docData.town,
                 roles: docData.roles,
+                img: docData.img,
                 isDeleted: docData.isDeleted
             };
 
