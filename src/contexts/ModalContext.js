@@ -10,8 +10,8 @@ export const ModalProvider = ({ children }) => {
     
     useEffect(() => {
         const handleClickOutside = (event) => {
-            if (event.target.className.includes('modal')) {
-                navigate('/');
+            if (event.target.tagName === 'SECTION' && event.target.className.includes('modal')) {
+                navigate(-1);
             } 
         };
 
