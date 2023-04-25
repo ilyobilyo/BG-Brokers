@@ -1,4 +1,4 @@
-import { collection, addDoc, query, orderBy, limit, getDocs, updateDoc, doc, deleteDoc, } from "firebase/firestore";
+import { collection, addDoc, query, orderBy, limit, getDocs, updateDoc, doc, deleteDoc, where, } from "firebase/firestore";
 import { db } from "../firebase";
 import { deleteFile, uploadFile } from "../utils/uploadImg";
 
@@ -67,4 +67,26 @@ export const deleteOffer = async (offer) => {
     }
 
     await deleteDoc(doc(db, 'Offers', offer.id))
+}
+
+export const getUserOffers = async (userId) => {
+    const offersRef = collection(db, "Offers");
+
+    const q = query(offersRef, where("broker.id", "==", userId));
+
+    const documentSnapshots = await getDocs(q);
+
+    const data = documentSnapshots.docs.map(x => {
+        const data = x.data();
+        const obj = { id: x.id };
+        for (const key in data) {
+            if (data[key]) {
+                obj[key] = data[key];
+            }
+        }
+
+        return obj;
+    })
+
+    return data;
 }
