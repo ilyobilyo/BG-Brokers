@@ -26,6 +26,9 @@ export const Header = () => {
                     {isAuthenticated && !user.isDeleted ?
                         <>
                             <li>
+                                <Link to="/myProfile">My Profile</Link>
+                            </li>
+                            <li>
                                 <Link to="/create" state={{ background: location }}>Create</Link>
                             </li>
                             {user.roles.includes('admin') &&
