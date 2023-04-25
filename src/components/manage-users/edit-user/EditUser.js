@@ -7,11 +7,13 @@ import { deleteFile, uploadFile } from "../../../utils/uploadImg";
 import styles from './EditUser.module.css'
 import { OfferLocationContext } from "../../../contexts/OfferLocationContext";
 import Select from 'react-select';
+import { AuthContext } from "../../../contexts/AuthContext";
 
 
 export const EditUser = () => {
     const { userId } = useParams();
     const { towns } = useContext(OfferLocationContext);
+    const {user, setUser} = useContext(AuthContext);
     const navigate = useNavigate();
 
     const [roles, setRoles] = useState([]);
@@ -64,10 +66,22 @@ export const EditUser = () => {
         }))
     }
 
+    const onChangeRole = (roles) => {
+        debugger
+        setFormData(state => ({
+            ...state,
+            roles: roles
+        }))
+    }
+
     const onChangeFile = async (e) => {
         deleteFile(formData.img);
 
         const newImg = await uploadFile(e.target.files[0])
+
+        user.img = newImg;
+
+        setUser(user);
 
         setFormData(state => ({
             ...state,
@@ -151,12 +165,12 @@ export const EditUser = () => {
                             <i className="fas fa-user-shield" /> Roles
                         </label>
                         <Select
-                        onChange={onChange}
+                            onChange={onChangeRole}
                             value={formData.roles}
                             isMulti
                             name="roles"
                             options={roles}
-                            className="basic-multi-select"
+                            className={`basic-multi-select ${styles.rolesSelect}`}
                             classNamePrefix="select"
                         />
                     </div>
