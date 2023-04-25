@@ -4,21 +4,22 @@ import { db } from "../firebase";
 export const getAllUsers = async () => {
     const querySnapshot = await getDocs(collection(db, 'UserData'));
 
-    const data = querySnapshot.docs.map(x => {
+    let data = querySnapshot.docs.map(x => {
         const data = x.data();
 
-        if (!data.isDeleted) {
-            return {
-                id: x.id,
-                name: `${data.firstName} ${data.lastName}`,
-                email: data.email,
-                phoneNumber: data.phoneNumber,
-                town: data.town,
-                roles: data.roles,
-                img: data.img
-            }
+        return {
+            id: x.id,
+            name: `${data.firstName} ${data.lastName}`,
+            email: data.email,
+            phoneNumber: data.phoneNumber,
+            town: data.town,
+            roles: data.roles,
+            img: data.img,
+            isDeleted: data.isDeleted
         }
     })
+
+    data = data.filter(x => x.isDeleted === false);
 
     return data;
 }
@@ -35,15 +36,23 @@ export const getUserById = async (userId) => {
 }
 
 export const updateUser = async (userData) => {
-    const offerRef = doc(db, "UserData", userData.id);
-    debugger
-    await updateDoc(offerRef, userData);
+    const userRef = doc(db, "UserData", userData.id);
+
+    const dataToSaveInDb = {
+        firstName: userData.firstName,
+        lastName: userData.lastName,
+        img: userData.img,
+        town: userData.town,
+        phoneNumber: userData.phoneNumber,
+        roles: userData.roles.map(x => x.value),
+    }
+
+    await updateDoc(userRef, dataToSaveInDb);
 
     return userData;
 }
 
 export const getRoles = async () => {
-    debugger
     const querySnapshot = await getDocs(collection(db, 'Roles'));
 
     const data = querySnapshot.docs.map(x => {
@@ -56,4 +65,12 @@ export const getRoles = async () => {
     })
 
     return data;
+}
+
+export const deleteUser = async (userId) => {
+    const userRef = doc(db, "UserData", userId);
+
+    await updateDoc(userRef, {
+        isDeleted: true,
+    });
 }
