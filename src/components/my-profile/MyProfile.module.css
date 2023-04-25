@@ -1,0 +1,266 @@
+.background{
+    background: rgb(255, 255, 255);
+    background: linear-gradient(62deg, rgba(255, 255, 255, 1) 0%, rgba(124, 242, 249, 1) 50%, rgba(255, 255, 255, 1) 0%);
+    height: 100vh;
+    animation: change-background 10s ease infinite;
+}
+
+.profileSection {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding: 6% 2%;
+    overflow: hidden;
+    color: #0D0338;
+}
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 53%;
+    height: 100%;
+    border-radius: 12px;
+    padding: 1%;
+}
+
+.imageSection {
+    width: 35%;
+    height: 60%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+    gap: 30px;
+    padding-top: 2%;
+}
+
+.imageSection label {
+    font-size: 1.3rem;
+    font-weight: bold;
+}
+
+.imageContainer {
+    width: 100%;
+    height: 100%;
+    border-radius: 16px;
+    overflow: hidden;
+    -webkit-box-shadow: 9px 5px 32px 0px rgba(0, 0, 0, 0.57);
+    -moz-box-shadow: 9px 5px 32px 0px rgba(0, 0, 0, 0.57);
+    box-shadow: 9px 5px 32px 0px rgba(0, 0, 0, 0.57);
+    transition: all .4s ease-in-out;
+
+}
+
+.imageContainer:hover{
+    transform: scale(1.1);
+}
+
+.imageContainer img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    cursor: pointer;
+}
+
+.userInfo {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    width: 60%;
+    height: 100%;
+    gap: 1rem;
+    padding: 2%;
+    border-radius: 12px;
+
+}
+
+.info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 94%;
+    height: 90%;
+    border: 1px solid #4AC6ED;
+    border-radius: 6px;
+    padding: 0.5% 3%;
+    -webkit-box-shadow: 3px 0px 6px -2px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 3px 0px 6px -2px rgba(0, 0, 0, 0.75);
+    box-shadow: 3px 0px 6px -2px rgba(0, 0, 0, 0.75);
+    background: rgb(200, 245, 255);
+    background: linear-gradient(34deg, rgba(200, 245, 255, 1) 0%, rgba(124, 242, 249, 1) 50%, rgba(111, 229, 255, 1) 60%);
+}
+
+.info label {
+    font-size: 1.2rem;
+    font-weight: bold;
+    width: 100%;
+}
+
+.info p {
+    font-size: 1rem;
+    font-weight: 600;
+    width: 40%;
+}
+
+.container h1 {
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    text-align: center;
+}
+
+.myOffers {
+    width: 37%;
+    height: 600px;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 12px;
+    -webkit-box-shadow: inset 0px 0px 13px -2px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: inset 0px 0px 13px -2px rgba(0, 0, 0, 0.75);
+    box-shadow: inset 0px 0px 13px -2px rgba(0, 0, 0, 0.75);
+    padding: 10px;
+    background-color: white;
+}
+
+.wrapper {
+    height: 100%;
+    width: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    border-radius: 8px;
+}
+
+.myOffers h1 {
+    margin: 1% 0%;
+    padding: 0;
+}
+
+.offer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid #4AC6ED;
+    border-radius: 6px;
+    overflow: hidden;
+    width: 100%;
+    height: 30%;
+    background: rgb(255, 255, 255);
+    background: linear-gradient(62deg, rgba(255, 255, 255, 1) 0%, rgba(124, 242, 249, 1) 50%, rgba(255, 255, 255, 1) 100%);
+    margin-bottom: 1%;
+}
+
+.offerImageContainer {
+    width: 35%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.offerImageContainer img {
+    width: 100%;
+    height: 100%;
+}
+
+.offerInfo {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 40%;
+    height: 100%;
+    text-align: start;
+    font-weight: bold;
+}
+
+.editBtn {
+    width: 40%;
+    height: 70%;
+    background-color: #FFA103;
+    font-size: 1.5rem;
+    text-decoration: none;
+    font-weight: bold;
+    color: white;
+    font-weight: bold;
+    border-radius: 6px;
+    padding: 2% 5%;
+    text-align: center;
+    transition: all .3s ease-in-out;
+}
+
+.editBtn:hover{
+    background-color: #cf8300;
+    transform: scale(1.1);
+}
+
+.actions{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+}
+
+.actions a{
+    width: 100%;
+    text-decoration: none;
+    padding: 8% 12%;
+    font-size: 1rem;
+    font-weight: bold;
+    color: white;
+    border-radius: 8px;
+    margin-right: 35%;
+    transition: all .3s ease-in-out;
+    text-align: center;
+}
+
+.actions .edit{
+    background-color: #FFA103;
+    
+}
+
+.actions .edit:hover{
+    background-color: #cf8300;
+    transform: scale(1.1);
+}
+
+.actions .delete{
+    background-color: #e9523e;
+}
+
+.actions .delete:hover{
+    background-color: #d61b15;
+    transform: scale(1.1);
+}
+
+.actions .view{
+    background: rgb(200, 245, 255);
+    background: linear-gradient(34deg, rgb(41, 178, 241) 0%, rgb(29, 207, 216)50%, rgb(21, 152, 204) 100%);
+}
+
+.actions .view:hover{
+    transform: scale(1.1);
+    background: rgb(200, 245, 255);
+    background: linear-gradient(34deg, rgb(35, 160, 243) 0%, rgb(152, 193, 240) 50%, rgb(17, 139, 240) 100%);
+}
+
+.role{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 40%;
+    gap: 5px;
+}
+
+@keyframes change-background {
+    0% {
+      background: rgba(255, 255, 255, 1);
+    }
+    50% {
+      background: rgb(150, 251, 255);
+    }
+    100% {
+      background: rgba(255, 255, 255, 1);
+    }
+  }
