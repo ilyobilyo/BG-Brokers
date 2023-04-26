@@ -1,0 +1,119 @@
+.modal {
+    display: flex;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0, 0, 0);
+    background-color: rgba(0, 0, 0, 0.4);
+    transform: scale(1);
+    animation: fadeIn .5s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
+
+    transform: translateX(-1500px);
+    animation: roadRunnerIn .3s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
+}
+
+
+.modalContentCreateTypes {
+    background-color: #7cfbff;
+    border-radius: 12px;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #4AC6ED;
+    width: 50%;
+    height: 35%;
+}
+
+.modalContentCreateTypes .create {
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    height: 100%;
+}
+
+.wrapper{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+}
+
+.modalContentCreateTypes .create select{
+    width: 50%;
+    font-size: 1.2rem;
+    color: #0D0338;
+    text-transform: uppercase;
+}
+
+.modalContentCreateTypes .create label {
+    font-size: 1.5rem;
+    color: #0D0338;
+    font-weight: bold;
+}
+
+.modalContentCreateTypes .create input {
+    width: 47%;
+    height: 2rem;
+    border-radius: 8px;
+    border: 1px solid rgb(28, 141, 240);
+    font-size: 1.5rem;
+}
+
+.modalContentCreateTypes .create button {
+    width: 40%;
+    height: 12%;
+    border-radius: 8px;
+    border: none;
+    background-color: #008CEB;
+    color: white;
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+    text-align: center;
+    transition: 400ms;
+    box-shadow: 0.5px 0.5px 2px #0D0338;
+}
+
+.modalContentCreateTypes .create button:hover {
+    background-color: #0D0338;
+    color: #4AC6ED;
+}
+
+.error{
+    margin: 0;
+    padding: 0;
+    color: red;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+@keyframes fadeIn {
+    0% {
+        background: rgba(0, 0, 0, .0);
+    }
+
+    100% {
+        background: rgba(0, 0, 0, .7);
+    }
+}
+
+@keyframes roadRunnerIn {
+    0% {
+        transform: translateX(-1500px) skewX(30deg) scaleX(1.3);
+    }
+
+    70% {
+        transform: translateX(30px) skewX(0deg) scaleX(.9);
+    }
+
+    100% {
+        transform: translateX(0px) skewX(0deg) scaleX(1);
+    }
+}
