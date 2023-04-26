@@ -13,7 +13,7 @@ import { AuthContext } from "../../../contexts/AuthContext";
 export const EditUser = () => {
     const { userId } = useParams();
     const { towns } = useContext(OfferLocationContext);
-    const {user, setUser} = useContext(AuthContext);
+    const { user, setUser } = useContext(AuthContext);
     const navigate = useNavigate();
 
     const [roles, setRoles] = useState([]);
@@ -49,14 +49,14 @@ export const EditUser = () => {
                             label: x,
                         }
                     })
-                    
+
                 });
             })
 
         userService.getRoles()
-        .then(data => {
-            setRoles(data);
-        })
+            .then(data => {
+                setRoles(data);
+            })
     }, [])
 
     const onChange = (e) => {
@@ -67,7 +67,6 @@ export const EditUser = () => {
     }
 
     const onChangeRole = (roles) => {
-        debugger
         setFormData(state => ({
             ...state,
             roles: roles
@@ -109,7 +108,20 @@ export const EditUser = () => {
 
         userService.updateUser(formData)
             .then(data => {
-                navigate('/manageUsers');
+                if (user.id === userId) {
+                    setUser(state => ({
+                        ...state,
+                        firstName: data.firstName,
+                        lastName: data.lastName,
+                        phoneNumber: data.phoneNumber,
+                        town: data.town,
+                        img: data.img,
+                        roles: data.roles.map(x => x.label)
+                    }));
+                    navigate('/myProfile');
+                } else if (user.roles.includes('admin') ) {
+                    navigate('/manageUsers');
+                }
             })
             .catch((error) => {
                 setErrors(state => ({
