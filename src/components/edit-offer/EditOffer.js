@@ -105,7 +105,7 @@ export const EditOffer = () => {
             .then(updatedOffer => {
                 setIsLoading(false);
                 updateOffer(updatedOffer);
-                navigate('/');
+                navigate(-1);
             })
     }
 
