@@ -8,7 +8,7 @@ import * as offerService from '../../services/offerService';
 
 export const OfferModal = () => {
     const { offers, deleteOfferFromState } = useContext(OfferContext);
-    const { isAuthenticated } = useContext(AuthContext);
+    const { isAuthenticated, user } = useContext(AuthContext);
     const { offerId } = useParams();
     const location = useLocation();
     const navigate = useNavigate();
@@ -159,11 +159,15 @@ export const OfferModal = () => {
                                     </div>
                                 }
                             </div>
-                            {isAuthenticated &&
+                            {user.id === offer.broker.id || user.roles.includes('admin') ?
                                 <div className={styles.actions}>
-                                    <Link className={styles.edit} to={`/edit/${offerId}`} state={{ background: location }}><i className="fas fa-edit"></i> Edit</Link>
+                                    {location.pathname.includes('myProfile')
+                                    ?<Link className={styles.edit} to={`/myProfile/edit/${offerId}`} state={{ background: location }}><i className="fas fa-edit"></i> Edit</Link>
+                                    :<Link className={styles.edit} to={`/edit/${offerId}`} state={{ background: location }}><i className="fas fa-edit"></i> Edit</Link>
+                                    }
                                     <Link className={styles.delete} onClick={deleteHandler} state={{ background: location }}><i className="fas fa-user-slash" /> Delete</Link>
                                 </div>
+                                : <></>
                             }
                         </div>
                     </div>
