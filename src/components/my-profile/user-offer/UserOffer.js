@@ -1,9 +1,8 @@
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation} from 'react-router-dom';
 import styles from '../MyProfile.module.css';
 
 export const UserOffer = ({ offer, deleteHandler }) => {
     const location = useLocation();
-    const navigate = useNavigate();
 
     return (
         <div className={styles.offer}>
@@ -17,7 +16,7 @@ export const UserOffer = ({ offer, deleteHandler }) => {
             </div>
             <div className={styles.actions}>
                 <Link className={styles.view} to={`offer/${offer.id}`} state={{ background: location }}><i class="fas fa-info-circle"></i> View Offer</Link>
-                <Link className={styles.edit} to={`/edit/${offer.id}`} state={{ background: location }}><i className="fas fa-edit"></i> Edit Offer</Link>
+                <Link className={styles.edit} to={`edit/${offer.id}`} state={{ background: location }}><i className="fas fa-edit"></i> Edit Offer</Link>
                 <Link className={styles.delete} data-id={offer.id} onClick={(e) => {deleteHandler(offer)}} state={{ background: location }}><i className="fas fa-trash"></i> Delete Offer</Link>
             </div>
         </div>
