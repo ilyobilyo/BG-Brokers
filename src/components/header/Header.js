@@ -29,12 +29,17 @@ export const Header = () => {
                                 <Link to="/myProfile">My Profile</Link>
                             </li>
                             <li>
-                                <Link to="/create" state={{ background: location }}>Create</Link>
+                                <Link to="/create" state={{ background: location }}>Create Offer</Link>
                             </li>
                             {user.roles.includes('admin') &&
-                                <li>
-                                    <Link to="/manageUsers" >Manage users</Link>
-                                </li>
+                                <>
+                                    <li>
+                                        <Link to="/createType" state={{ background: location }} >Create Type</Link>
+                                    </li>
+                                    <li>
+                                        <Link to="/manageUsers" >Manage users</Link>
+                                    </li>
+                                </>
                             }
                             <li>
                                 <Link to="/logout">Logout</Link>
