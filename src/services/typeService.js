@@ -1,4 +1,4 @@
-import { collection, getDocs } from "firebase/firestore";
+import { arrayUnion, collection, doc, getDocs, updateDoc} from "firebase/firestore";
 import { db } from "../firebase";
 
 export async function GetAllTypes() {
@@ -12,4 +12,12 @@ export async function GetAllTypes() {
     console.log(data);
 
     return data;
+}
+
+export async function CreateType(data) {
+    const typeRef = doc(db, "Types", data.typeName);
+    
+    await updateDoc(typeRef, {
+        types: arrayUnion({name: data.name})
+    });
 }
