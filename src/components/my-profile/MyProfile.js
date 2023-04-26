@@ -9,7 +9,7 @@ import { OfferContext } from '../../contexts/OfferContext';
 
 export const MyProfile = () => {
     const { user } = useContext(AuthContext);
-    const {deleteOfferFromState} = useContext(OfferContext);
+    const {deleteOfferFromState, offers} = useContext(OfferContext);
     const navigate = useNavigate();
 
     const [userOffers, setUserOffers] = useState([]);
@@ -20,7 +20,7 @@ export const MyProfile = () => {
             .then(data => {
                 setUserOffers(data);
             })
-    }, [])
+    }, [offers])
 
 
     const deleteHandler = (offer) => {
@@ -51,7 +51,7 @@ export const MyProfile = () => {
                                 <img id='userPic' src={user.img} alt="userImage" onClick={toggleModal} />
                             </div>
                             <Link className={styles.editBtn} to={`/editUser/${user.id}`}>
-                                <i class="fas fa-user-edit"></i> Edit Info
+                                <i className="fas fa-user-edit"></i> Edit Info
                             </Link>
                         </div>
                         <div className={styles.userInfo}>
