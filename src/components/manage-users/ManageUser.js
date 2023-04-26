@@ -16,10 +16,12 @@ export const ManageUsers = () => {
     const deleteHandler = (e) => {
         e.preventDefault();
 
-        userService.deleteUser(e.target.dataset.id)
-        .then(() => {
-            setUsers(state => users.filter(x => x.id !== e.target.dataset.id));
-        })
+        if (window.confirm('Are you sure you want to delete the offer?') == true) {
+            userService.deleteUser(e.target.dataset.id)
+                .then(() => {
+                    setUsers(state => users.filter(x => x.id !== e.target.dataset.id));
+                })
+        }
     }
 
     return (
@@ -29,7 +31,7 @@ export const ManageUsers = () => {
                 {users.length === 0
                     ? <p>Loading...</p>
                     : <div className={styles.cardWrapper}>
-                        {users.map(x => <UserCard key={x.id} user={x} deleteHandler={deleteHandler}/>)}
+                        {users.map(x => <UserCard key={x.id} user={x} deleteHandler={deleteHandler} />)}
                     </div>
                 }
             </div>
