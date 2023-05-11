@@ -3,6 +3,7 @@ import { TypeContext } from "../../contexts/TypeContext"
 import styles from './CreateType.module.css';
 import * as typeService from '../../services/typeService';
 import { checkRequiredInputField } from "../../utils/validate";
+import { useNavigate } from "react-router-dom";
 
 export const CreateType = () => {
     const { types } = useContext(TypeContext);
@@ -10,6 +11,8 @@ export const CreateType = () => {
         typeName: '',
         name: '',
     });
+
+    const navigate = useNavigate();
 
     const [errors, setErrors] = useState({
         typeName: '',
@@ -44,7 +47,7 @@ export const CreateType = () => {
 
         typeService.CreateType(formData)
             .then(() => {
-                console.log('done');
+                navigate('/');
             })
     }
 
