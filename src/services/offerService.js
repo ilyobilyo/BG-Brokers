@@ -1,4 +1,4 @@
-import { collection, addDoc, query, orderBy, limit, getDocs, updateDoc, doc, deleteDoc, where, } from "firebase/firestore";
+import { collection, addDoc, query, orderBy, limit, getDocs, updateDoc, doc, deleteDoc, where, startAfter } from "firebase/firestore";
 import { db } from "../firebase";
 import { deleteFile, uploadFile } from "../utils/uploadImg";
 
@@ -18,23 +18,18 @@ export const createOffer = async (data) => {
     return data;
 }
 
-export const getAllOffers = async () => {
-    const first = query(collection(db, "Offers"), orderBy("createdAt", "desc"), limit(25));
-    const documentSnapshots = await getDocs(first);
+export const getAllOffers = async (lastDoc) => {
+    let q = '';
 
-    const data = documentSnapshots.docs.map(x => {
-        const data = x.data();
-        const obj = { id: x.id };
-        for (const key in data) {
-            if (data[key]) {
-                obj[key] = data[key];
-            }
-        }
-
-        return obj;
-    })
-
-    return data;
+    if (lastDoc) {
+        q = query(collection(db, "Offers"), orderBy("createdAt", "desc"), startAfter(lastDoc), limit(6));
+    } else {
+        q = query(collection(db, "Offers"), orderBy("createdAt", "desc"), limit(6));
+    }
+    
+    const documentSnapshots = await getDocs(q);
+    
+    return documentSnapshots;
 }
 
 export const updateOffer = async (offerId, data) => {
