@@ -5,16 +5,30 @@ export const OfferContext = createContext();
 
 export const OfferProvider = ({ children }) => {
     const [offers, setOffers] = useState([]);
+    const [lastDoc, setLastDoc] = useState({});
 
     useEffect(() => {
         offerService.getAllOffers()
             .then(data => {
-                setOffers(data);
+                const newOffers = data.docs.map(x => {
+                    const data = x.data();
+                    const obj = { id: x.id };
+                    for (const key in data) {
+                        if (data[key]) {
+                            obj[key] = data[key];
+                        }
+                    }
+
+                    return obj;
+                })
+
+                setLastDoc(data.docs[data.docs.length - 1])
+                setOffers(newOffers);
             });
     }, [])
 
     const addNewOffer = (offer) => {
-        setOffers(state => [offer, ...state]);
+        setOffers(state => ([offer, ...state]));
     }
 
     const updateOffer = (offer) => {
@@ -31,8 +45,32 @@ export const OfferProvider = ({ children }) => {
         setOffers(offers.filter(x => x.id !== offerId));
     }
 
+    const getOffersForInfiniteScroll = (lastDoc, handleScroll) => {
+        offerService.getAllOffers(lastDoc)
+            .then(data => {
+                if (data.empty) {
+                    window.removeEventListener("scroll", handleScroll);
+                }
+
+                const newOffers = data.docs.map(x => {
+                    const data = x.data();
+                    const obj = { id: x.id };
+                    for (const key in data) {
+                        if (data[key]) {
+                            obj[key] = data[key];
+                        }
+                    }
+
+                    return obj;
+                })
+
+                setLastDoc(state => data.docs[data.docs.length - 1])
+                setOffers(state => [...state, ...newOffers]);
+            });
+    }
+
     return (
-        <OfferContext.Provider value={{offers, addNewOffer, updateOffer, deleteOfferFromState}}>
+        <OfferContext.Provider value={{ lastDoc, offers, addNewOffer, updateOffer, deleteOfferFromState, getOffersForInfiniteScroll}}>
             {children}
         </OfferContext.Provider>
     )
