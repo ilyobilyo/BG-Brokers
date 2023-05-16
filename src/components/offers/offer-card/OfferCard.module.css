@@ -2,18 +2,18 @@
     display: flex;
     flex-direction: column;
     width: 27%;
+    height: 100%;
     border-radius: 6px;
     box-shadow: 0.5px black;
     border: 1px solid #8fecf0;
     cursor: pointer;
     color: #0D0338;
-    transition: 400ms;
+    transition: all .4s ease-in-out;
     overflow: hidden;
 }
 
 .card:hover {
-    background: rgb(14, 185, 255);
-    background: linear-gradient(90deg, rgba(14, 185, 255, 1) 0%, rgba(9, 232, 250, 1) 36%, rgba(92, 216, 255, 1) 100%);
+    transform: scale(1.1);
 }
 
 .imgContainer {
@@ -38,13 +38,13 @@
 }
 
 .cardInfo .cardTitle {
-    font-size: 1.5rem;
-    width: 45%;
+    font-size: 1.2rem;
+    width: 60%;
 }
 
 .cardInfo .price {
     font-size: 1.5rem;
-    width: 45%;
+    width: 30%;
     text-align: end;
     font-size: 1.5rem;
     font-weight: bold;
