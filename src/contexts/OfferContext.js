@@ -6,25 +6,11 @@ export const OfferContext = createContext();
 export const OfferProvider = ({ children }) => {
     const [offers, setOffers] = useState([]);
     const [lastDoc, setLastDoc] = useState({});
+    
+    const [filters, setFilters] = useState();
 
     useEffect(() => {
-        offerService.getAllOffers()
-            .then(data => {
-                const newOffers = data.docs.map(x => {
-                    const data = x.data();
-                    const obj = { id: x.id };
-                    for (const key in data) {
-                        if (data[key]) {
-                            obj[key] = data[key];
-                        }
-                    }
-
-                    return obj;
-                })
-
-                setLastDoc(data.docs[data.docs.length - 1])
-                setOffers(newOffers);
-            });
+       getInitialOffers();
     }, [])
 
     const addNewOffer = (offer) => {
@@ -45,8 +31,59 @@ export const OfferProvider = ({ children }) => {
         setOffers(offers.filter(x => x.id !== offerId));
     }
 
-    const getOffersForInfiniteScroll = (lastDoc, handleScroll) => {
-        offerService.getAllOffers(lastDoc)
+    const getInitialOffers = (params) => {
+        if (params) {
+            setFilters(state => params);
+        } else{
+            setFilters(state => undefined);
+        }
+
+        offerService.getAllOffers(null, params || null)
+        .then(data => {
+            const newOffers = data.docs.map(x => {
+                const data = x.data();
+                const obj = { id: x.id };
+                for (const key in data) {
+                    if (data[key]) {
+                        obj[key] = data[key];
+                    }
+                }
+
+                return obj;
+            })
+
+            setLastDoc(data.docs[data.docs.length - 1])
+            setOffers(newOffers);
+        });
+    }
+
+    const getOffersForInfiniteScroll = () => {
+        if (filters !== undefined && Object.keys(filters).length > 0) {
+            offerService.getAllOffers(lastDoc, filters)
+            .then(data => {
+                if (data.empty) {
+                    window.removeEventListener("scroll", handleScroll);
+                    setLastDoc(null);
+                    return;
+                }
+
+                const newOffers = data.docs.map(x => {
+                    const data = x.data();
+                    const obj = { id: x.id };
+                    for (const key in data) {
+                        if (data[key]) {
+                            obj[key] = data[key];
+                        }
+                    }
+
+                    return obj;
+                })
+
+                setLastDoc(state => data.docs[data.docs.length - 1])
+                setOffers(state => [...state, ...newOffers]);
+            });
+        } else {
+            offerService.getAllOffers(lastDoc)
             .then(data => {
                 if (data.empty) {
                     window.removeEventListener("scroll", handleScroll);
@@ -67,10 +104,29 @@ export const OfferProvider = ({ children }) => {
                 setLastDoc(state => data.docs[data.docs.length - 1])
                 setOffers(state => [...state, ...newOffers]);
             });
+        }
+        
+       
     }
 
+    const handleScroll = () => {
+        if (window.innerHeight + document.documentElement.scrollTop === document.documentElement.offsetHeight && lastDoc) {
+            getOffersForInfiniteScroll()
+        }
+    };
+
     return (
-        <OfferContext.Provider value={{ lastDoc, offers, addNewOffer, updateOffer, deleteOfferFromState, getOffersForInfiniteScroll}}>
+        <OfferContext.Provider value={{ 
+            lastDoc, 
+            offers, 
+            filters, 
+            addNewOffer, 
+            updateOffer,
+            deleteOfferFromState, 
+            getOffersForInfiniteScroll, 
+            getInitialOffers,
+            handleScroll, 
+            }}>
             {children}
         </OfferContext.Provider>
     )
