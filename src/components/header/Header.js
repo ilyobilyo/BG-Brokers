@@ -2,9 +2,11 @@ import { Link, useLocation } from 'react-router-dom';
 import styles from './Header.module.css';
 import { useContext } from 'react';
 import { AuthContext } from '../../contexts/AuthContext';
+import { OfferContext } from '../../contexts/OfferContext';
 
 export const Header = () => {
     const { isAuthenticated, user } = useContext(AuthContext);
+    const { getInitialOffers } = useContext(OfferContext);
     const location = useLocation();
 
     return (
@@ -13,7 +15,7 @@ export const Header = () => {
             <nav>
                 <ul className={styles.headerUl}>
                     <li>
-                        <Link id={styles.navActive} to="/">
+                        <Link id={styles.navActive} to="/" onClick={() => {getInitialOffers()}}>
                             Home
                         </Link>
                     </li>
