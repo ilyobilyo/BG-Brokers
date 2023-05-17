@@ -4,12 +4,11 @@ import { OfferCard } from './offer-card/OfferCard';
 import { OfferContext } from '../../contexts/OfferContext';
 
 export const Offers = () => {
-    const { lastDoc, offers, getOffersForInfiniteScroll } = useContext(OfferContext);
+    const { lastDoc, offers, handleScroll } = useContext(OfferContext);
 
     useEffect(() => {
         if (lastDoc) {
             window.addEventListener("scroll", handleScroll);
-            console.log('pls');
         }
 
         return () => {
@@ -17,12 +16,6 @@ export const Offers = () => {
         };
     }, [lastDoc]);
 
-    const handleScroll = () => {
-        if (window.innerHeight + document.documentElement.scrollTop === document.documentElement.offsetHeight) {
-            console.log("dOCC", lastDoc);
-            getOffersForInfiniteScroll(lastDoc, handleScroll)
-        }
-    };
 
     return (
         <section className={styles.topOffers}>
