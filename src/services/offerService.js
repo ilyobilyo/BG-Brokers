@@ -18,17 +18,11 @@ export const createOffer = async (data) => {
     return data;
 }
 
-export const getAllOffers = async (lastDoc) => {
-    let q = '';
+export const getAllOffers = async (lastDoc, filters) => {
+    let q = buildQuery(filters, lastDoc);
 
-    if (lastDoc) {
-        q = query(collection(db, "Offers"), orderBy("createdAt", "desc"), startAfter(lastDoc), limit(6));
-    } else {
-        q = query(collection(db, "Offers"), orderBy("createdAt", "desc"), limit(6));
-    }
-    
     const documentSnapshots = await getDocs(q);
-    
+
     return documentSnapshots;
 }
 
@@ -39,7 +33,7 @@ export const updateOffer = async (offerId, data) => {
         for (const file of data.images) {
             if (typeof file !== 'string') {
                 images.push(await uploadFile(file))
-            } else{
+            } else {
                 images.push(file)
             }
         }
@@ -84,4 +78,35 @@ export const getUserOffers = async (userId) => {
     })
 
     return data;
+}
+
+const buildQuery = (filters, lastDoc) => {
+    let q = query(collection(db, "Offers"));
+
+    for (const filterKey in filters || {}) {
+        const filterValue = filters[filterKey];
+
+        if (filterKey === 'priceFrom' && filterValue !== '') {
+            q = query(q, where('price', '>=', filterValue));
+        } else if (filterKey === 'priceTo' && filterValue !== '') {
+            q = query(q, where('price', '<=', filterValue));
+        } else if (filterValue !== '') {
+            q = query(q, where(filterKey, '==', filterValue));
+        }
+    }
+
+    if (filters) {
+        q = query(q, orderBy("price"), orderBy("createdAt", "desc"));
+    }else{
+        q = query(q, orderBy("createdAt", "desc"));
+    }
+
+    if (lastDoc && Object.keys(lastDoc).length > 0) {
+        q = query(q, startAfter(lastDoc));
+    }
+
+    q = query(q, limit(6));
+
+
+    return q;
 }
