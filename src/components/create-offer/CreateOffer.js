@@ -31,6 +31,7 @@ export const CreateOffer = () => {
         heating: '',
         broker: '',
         address: '',
+        exposition: '',
         price: '',
         area: '',
         rooms: '',
@@ -109,12 +110,18 @@ export const CreateOffer = () => {
                 {isLoading ? <p>Creating ...</p>
                     : <form encType="multipart/form-data" className={styles.createOfferForm} onSubmit={onSubmit}>
                         <InputField elementId='offer-title' labelText='Title' inputType='text' name='title' onChanegeHandler={onChange} />
-
+                        
                         <SelectField elementId='city' labelText='Town' name='town' options={towns} hasOptionId={true} onChangeHandler={onChangeTownInput} onBlurHandler={setTownHoods} />
 
                         <SelectField elementId='offer-hood' labelText='Hood' name='hood' options={hoods} onChangeHandler={onChange} />
 
                         <SelectField elementId='sell-type' labelText='Sell Type' name='sellType' options={types.sellType} onChangeHandler={onChange} />
+                        
+                        <InputField elementId='offer-address' labelText='Address' inputType='text' name='address' onChanegeHandler={onChange} />
+
+                        <InputField elementId='offer-price' labelText='Price' inputType='number' name='price' onChanegeHandler={onChange} />
+
+                        <InputField elementId='offer-area' labelText='Area in ㎡' inputType='number' name='area' onChanegeHandler={onChange} />
 
                         <SelectField elementId='offer-type' labelText='Offer Type' name='offerType' options={types.offerType} onChangeHandler={onChange} />
 
@@ -125,12 +132,6 @@ export const CreateOffer = () => {
                         <SelectField elementId='offer-heating' labelText='Heating' name='heating' options={types.heating} onChangeHandler={onChange} />
 
                         <SelectField elementId='offer-broker' labelText='Broker' name='broker' options={brokers} hasOptionId={true} onChangeHandler={onChange} />
-
-                        <InputField elementId='offer-address' labelText='Address' inputType='text' name='address' onChanegeHandler={onChange} />
-
-                        <InputField elementId='offer-price' labelText='Price' inputType='number' name='price' onChanegeHandler={onChange} />
-
-                        <InputField elementId='offer-area' labelText='Area in ㎡' inputType='number' name='area' onChanegeHandler={onChange} />
 
                         <InputField elementId='offer-rooms' labelText='Total Rooms' inputType='number' name='rooms' onChanegeHandler={onChange} />
 
@@ -147,6 +148,8 @@ export const CreateOffer = () => {
                         <InputField elementId='offer-elevator' labelText='Has Elevator' inputType='checkbox' name='hasElevator' onChanegeHandler={onChangeCheckbox} />
 
                         <InputField elementId='offer-parking' labelText='Has Parking place' inputType='checkbox' name='hasParkingPlace' onChanegeHandler={onChangeCheckbox} />
+
+                        <SelectField elementId='offer-exposition' labelText='Exposition' name='exposition' options={types.exposition} onChangeHandler={onChange} />
 
                         <Textarea elementId='offer-desc' labelText='Description' name='description' onChangeHandler={onChange} />
 
