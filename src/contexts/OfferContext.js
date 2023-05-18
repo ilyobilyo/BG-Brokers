@@ -1,16 +1,29 @@
 import { createContext, useEffect, useState } from "react";
 import * as offerService from '../services/offerService';
+import { useLocation } from "react-router-dom";
 
 export const OfferContext = createContext();
 
 export const OfferProvider = ({ children }) => {
     const [offers, setOffers] = useState([]);
     const [lastDoc, setLastDoc] = useState({});
-    
     const [filters, setFilters] = useState();
 
+    const location = useLocation();
+
+
     useEffect(() => {
-       getInitialOffers();
+        if (location.search) {
+            const searchParams = new URLSearchParams(location.search);
+            let initialFilters = {};
+            searchParams.forEach((value, key) => {
+                initialFilters[key] = value
+            });
+            console.log(initialFilters);
+            getInitialOffers(initialFilters);
+        } else{
+            getInitialOffers();
+        }
     }, [])
 
     const addNewOffer = (offer) => {

@@ -9,7 +9,6 @@ import { ModalProvider } from './contexts/ModalContext';
 import { Login } from './components/login/Login';
 import { AuthProvider } from './contexts/AuthContext';
 import { Logout } from './components/logout/Logout';
-import { FilterProvider } from './contexts/FilterContext';
 import { CreateOffer } from './components/create-offer/CreateOffer';
 import { ManageUsers } from './components/manage-users/ManageUser';
 import { PrivateGuard } from './components/common/PrivateGuard';
