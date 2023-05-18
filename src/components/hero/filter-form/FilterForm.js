@@ -19,7 +19,7 @@ export const FilterForm = () => {
     const [errors, setErrors] = useState({
         priceFrom: '',
         priceTo: '',
-        quadrature: '',
+        area: '',
     })
     const [formData, setFormData] = useState({
         sellType: '',
@@ -32,7 +32,7 @@ export const FilterForm = () => {
         heating: '',
         exposition: '',
         construction: '',
-        quadrature: '',
+        area: '',
     })
     const [showAdvanced, setShowAdvanced] = useState(false);
 
