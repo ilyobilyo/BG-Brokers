@@ -58,7 +58,7 @@ export const CreateOffer = () => {
     const onChange = (e) => {
         setFormData(state => ({
             ...state,
-            [e.target.name]: e.target.value
+            [e.target.name]: e.target.name === 'price' || e.target.name === 'area' ? Number(e.target.value) : e.target.value
         }))
     }
 
