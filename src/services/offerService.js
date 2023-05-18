@@ -87,9 +87,11 @@ const buildQuery = (filters, lastDoc) => {
         const filterValue = filters[filterKey];
 
         if (filterKey === 'priceFrom' && filterValue !== '') {
-            q = query(q, where('price', '>=', filterValue));
+            q = query(q, where('price', '>=', Number(filterValue)));
         } else if (filterKey === 'priceTo' && filterValue !== '') {
-            q = query(q, where('price', '<=', filterValue));
+            q = query(q, where('price', '<=', Number(filterValue)));
+        } else if (filterKey === 'area' && filterValue !== ''){
+            q = query(q, where('area', '==', Number(filterValue)));
         } else if (filterValue !== '') {
             q = query(q, where(filterKey, '==', filterValue));
         }
