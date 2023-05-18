@@ -9,6 +9,7 @@ import { ModalProvider } from './contexts/ModalContext';
 import { Login } from './components/login/Login';
 import { AuthProvider } from './contexts/AuthContext';
 import { Logout } from './components/logout/Logout';
+import { FilterProvider } from './contexts/FilterContext';
 import { CreateOffer } from './components/create-offer/CreateOffer';
 import { ManageUsers } from './components/manage-users/ManageUser';
 import { PrivateGuard } from './components/common/PrivateGuard';
@@ -28,11 +29,11 @@ function App() {
   return (
     <div className="App">
       <AuthProvider>
-        <Header />
-        <ModalProvider>
-          <TypeProvider>
-            <OfferLocationProvider>
-              <OfferProvider>
+        <OfferProvider>
+          <Header />
+          <ModalProvider>
+            <TypeProvider>
+              <OfferLocationProvider>
                 <Routes>
 
                   <Route path="/" element={<Home />}>
@@ -74,10 +75,10 @@ function App() {
                     <Route path='/createType' element={<CreateType />} />
                   </Routes>
                 )}
-              </OfferProvider>
-            </OfferLocationProvider>
-          </TypeProvider>
-        </ModalProvider>
+              </OfferLocationProvider>
+            </TypeProvider>
+          </ModalProvider>
+        </OfferProvider>
       </AuthProvider>
     </div>
   );
