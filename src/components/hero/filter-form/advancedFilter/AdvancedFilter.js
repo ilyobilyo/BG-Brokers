@@ -63,7 +63,7 @@ export const AdvancedFilter = ({hideClickHandler, onChangeHandler, validatePrice
 
             <InputField 
                 title='Квадратура ㎡' 
-                name="quadrature"
+                name="area"
                 id={'qaud'} 
                 onChangeHandler={onChangeHandler}
             />
