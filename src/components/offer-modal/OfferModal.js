@@ -19,7 +19,6 @@ export const OfferModal = () => {
     const [isAnimating, setIsAnimating] = useState(false);
 
     useEffect(() => {
-        // Add a delay to allow the animation to complete before resetting the isAnimating state
         const timeoutId = setTimeout(() => {
             setIsAnimating(false);
         }, 300);
@@ -128,6 +127,11 @@ export const OfferModal = () => {
                                         <i className="fas fa-temperature-high" /> Heating: <span>{offer.heating}</span>
                                     </li>
                                 }
+                                {offer.exposition &&
+                                    <li>
+                                        <i className="fas fa-temperature-high" /> Exposition: <span>{offer.exposition}</span>
+                                    </li>
+                                }
                                 <li>
                                     <i className="fas fa-users" />
                                     <i className="fas fa-arrows-alt-v" /> Has Elevator:
@@ -159,7 +163,7 @@ export const OfferModal = () => {
                                     </div>
                                 }
                             </div>
-                            {user.id === offer.broker.id || user.roles.includes('admin') ?
+                            {isAuthenticated && (user.id === offer.broker.id || user.roles.includes('admin')) ?
                                 <div className={styles.actions}>
                                     {location.pathname.includes('myProfile')
                                     ?<Link className={styles.edit} to={`/myProfile/edit/${offerId}`} state={{ background: location }}><i className="fas fa-edit"></i> Edit</Link>
