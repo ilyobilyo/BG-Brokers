@@ -5,15 +5,17 @@ import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { ImageElement } from './image-element/ImageElement';
 import { AuthContext } from '../../contexts/AuthContext';
 import * as offerService from '../../services/offerService';
+import { TeamMemberCard } from '../about-us/team-member-card/TeamMemberCard';
+import { BrokerCard } from './broker-card/BrokerCard';
 
 export const OfferModal = () => {
-    const { offers, deleteOfferFromState } = useContext(OfferContext);
+    const { deleteOfferFromState } = useContext(OfferContext);
     const { isAuthenticated, user } = useContext(AuthContext);
     const { offerId } = useParams();
     const location = useLocation();
     const navigate = useNavigate();
 
-    const [offer, setOffer] = useState({});
+    const [offer, setOffer] = useState(null);
     const [isLoading, setIsloading] = useState(true);
     const [currentIndex, setCurrentIndex] = useState(0);
     const [isAnimating, setIsAnimating] = useState(false);
@@ -26,8 +28,11 @@ export const OfferModal = () => {
     }, [currentIndex]);
 
     useEffect(() => {
-        setOffer(offers.find(x => x.id == offerId))
-        setIsloading(false);
+        offerService.getOfferById(offerId)
+            .then(data => {
+                setOffer(state => data)
+                setIsloading(false);
+            })
     }, [])
 
     const handleNext = () => {
@@ -57,10 +62,10 @@ export const OfferModal = () => {
     }
 
     return (
-        isLoading
+        isLoading || !offer
             ? <p>Loading ...</p>
             :
-            <section id="offerModal" className={styles.modal}>
+            <section id="offerModal" className={styles.container}>
                 <div className={styles.modalOfferContent}>
                     <div className={styles.heading}>
                         <h1>{offer.title}</h1>
@@ -91,8 +96,7 @@ export const OfferModal = () => {
                                     <i className="fas fa-city" /> Town: <span>{offer.town} | {offer.hood}</span>
                                 </li>
                                 <li>
-                                    <i className="fas fa-map-marker-alt" /> Address:
-                                    <span>{offer.address}</span>
+                                    <i className="fas fa-map-marker-alt" /> Address: <span>{offer.address}</span>
                                 </li>
                                 {offer.rooms &&
                                     <li>
@@ -148,26 +152,13 @@ export const OfferModal = () => {
                                 <p>{offer.description}</p>
                             </div>
                             <div className={styles.contacts}>
-                                <div className={styles.broker}>
-                                    <label>Broker: {offer.broker.name}</label>
-                                    <p className={styles.contact}>
-                                        <i className="fas fa-phone" /> {offer.broker.phoneNumber}
-                                    </p>
-                                </div>
-                                {offer.ownerPhone &&
-                                    <div className={styles.owner}>
-                                        <label>Owner: </label>
-                                        <p className={styles.contact}>
-                                            <i className="fas fa-phone" /> {offer.ownerPhone}
-                                        </p>
-                                    </div>
-                                }
+                                <BrokerCard member={offer.broker} />
                             </div>
                             {isAuthenticated && (user.id === offer.broker.id || user.roles.includes('admin')) ?
                                 <div className={styles.actions}>
                                     {location.pathname.includes('myProfile')
-                                    ?<Link className={styles.edit} to={`/myProfile/edit/${offerId}`} state={{ background: location }}><i className="fas fa-edit"></i> Edit</Link>
-                                    :<Link className={styles.edit} to={`/edit/${offerId}`} state={{ background: location }}><i className="fas fa-edit"></i> Edit</Link>
+                                        ? <Link className={styles.edit} to={`/myProfile/edit/${offerId}`} state={{ background: location }}><i className="fas fa-edit"></i> Edit</Link>
+                                        : <Link className={styles.edit} to={`/edit/${offerId}`} state={{ background: location }}><i className="fas fa-edit"></i> Edit</Link>
                                     }
                                     <Link className={styles.delete} onClick={deleteHandler} state={{ background: location }}><i className="fas fa-user-slash" /> Delete</Link>
                                 </div>
