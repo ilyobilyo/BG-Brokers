@@ -1,4 +1,4 @@
-import { collection, addDoc, query, orderBy, limit, getDocs, updateDoc, doc, deleteDoc, where, startAfter } from "firebase/firestore";
+import { collection, addDoc, query, orderBy, limit, getDocs, updateDoc, doc, deleteDoc, where, startAfter, getDoc } from "firebase/firestore";
 import { db } from "../firebase";
 import { deleteFile, uploadFile } from "../utils/uploadImg";
 
@@ -24,6 +24,17 @@ export const getAllOffers = async (lastDoc, filters) => {
     const documentSnapshots = await getDocs(q);
 
     return documentSnapshots;
+}
+
+export const getOfferById = async (offerId) => {
+    const docRef = doc(db, "Offers", offerId);
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+        return docSnap.data();
+    } else {
+        console.log("No such document!");
+    }
 }
 
 export const updateOffer = async (offerId, data) => {
@@ -90,7 +101,7 @@ const buildQuery = (filters, lastDoc) => {
             q = query(q, where('price', '>=', Number(filterValue)));
         } else if (filterKey === 'priceTo' && filterValue !== '') {
             q = query(q, where('price', '<=', Number(filterValue)));
-        } else if (filterKey === 'area' && filterValue !== ''){
+        } else if (filterKey === 'area' && filterValue !== '') {
             q = query(q, where('area', '==', Number(filterValue)));
         } else if (filterValue !== '') {
             q = query(q, where(filterKey, '==', filterValue));
@@ -99,7 +110,7 @@ const buildQuery = (filters, lastDoc) => {
 
     if (filters) {
         q = query(q, orderBy("price"), orderBy("createdAt", "desc"));
-    }else{
+    } else {
         q = query(q, orderBy("createdAt", "desc"));
     }
 
