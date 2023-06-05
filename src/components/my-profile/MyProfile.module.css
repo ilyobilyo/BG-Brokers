@@ -8,28 +8,42 @@
 .profileSection {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-around;
-    padding: 6% 2%;
+    justify-content: space-between;
+    align-items: center;
+    padding: 4% 1%;
     overflow: hidden;
     color: #0D0338;
+    width: 100%;
 }
 
 .container {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
-    width: 53%;
+    justify-content: space-evenly;
+    width: 100%;
     height: 100%;
+    padding: 1% 2% 18% 2%;
     border-radius: 12px;
     -webkit-box-shadow: inset 0px 0px 13px -2px rgba(0, 0, 0, 0.75);
     -moz-box-shadow: inset 0px 0px 13px -2px rgba(0, 0, 0, 0.75);
     box-shadow: inset 0px 0px 13px -2px rgba(0, 0, 0, 0.75);
-    padding: 1%;
+}
+
+.bigContainer{
+    width: 45%;
+    margin-left: 5%;
+    height: 100%;
+}
+
+.title{
+    display: inline-block;
+    width: 44%;
+    font-size: 2rem;
 }
 
 .imageSection {
-    width: 35%;
-    height: 60%;
+    width: 40%;
+    height: 80%;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -69,10 +83,9 @@
 .userInfo {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: space-evenly;
     align-items: center;
-    width: 60%;
-    height: 100%;
+    width: 55%;
     gap: 1rem;
     padding: 2%;
     border-radius: 12px;
@@ -83,8 +96,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 94%;
-    height: 90%;
+    width: 80%;
     border: 1px solid #4AC6ED;
     border-radius: 6px;
     padding: 0.5% 3%;
@@ -97,13 +109,13 @@
 
 .info label {
     font-size: 1.2rem;
-    font-weight: bold;
+    font-weight: 300;
     width: 100%;
 }
 
 .info p {
     font-size: 1rem;
-    font-weight: 600;
+    font-weight: 500;
     width: 40%;
 }
 
@@ -115,7 +127,7 @@
 }
 
 .myOffers {
-    width: 37%;
+    width: 80%;
     height: 600px;
     display: flex;
     justify-content: space-between;
@@ -174,13 +186,13 @@
     width: 40%;
     height: 100%;
     text-align: start;
-    font-weight: bold;
+    font-weight: 400;
 }
 
 .editBtn {
     width: 40%;
     height: 70%;
-    background-color: #FFA103;
+    background-color: #0775f1;
     font-size: 1.5rem;
     text-decoration: none;
     font-weight: bold;
@@ -193,7 +205,7 @@
 }
 
 .editBtn:hover{
-    background-color: #cf8300;
+    background-color: #0a5dbb;
     transform: scale(1.1);
 }
 
@@ -219,12 +231,12 @@
 }
 
 .actions .edit{
-    background-color: #FFA103;
+    background-color: #0775f1;
     
 }
 
 .actions .edit:hover{
-    background-color: #cf8300;
+    background-color: #0a5dbb;
     transform: scale(1.1);
 }
 
