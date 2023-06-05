@@ -1,0 +1,225 @@
+.heroAbout {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    background-image: url(../../../public/images/about3.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 600px;
+}
+
+.heroAbout::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 61.5%;
+    background-color: rgb(12, 12, 247);
+    opacity: 0.1;
+}
+
+.header-ul a:hover {
+    background-color: #476FD6;
+    color: white;
+    transition: 600ms;
+}
+
+#nav-active {
+    background-color: #476FD6;
+    color: white;
+}
+
+.heroAbout {
+    background-image: url('../../../public/images/about3.jpg');
+    background-size: cover;
+    -webkit-animation: slidein 50s;
+    animation: slidein 50s;
+
+    -webkit-animation-fill-mode: forwards;
+    animation-fill-mode: forwards;
+
+    -webkit-animation-iteration-count: infinite;
+    animation-iteration-count: infinite;
+
+    -webkit-animation-direction: alternate;
+    animation-direction: alternate;
+}
+
+@-webkit-keyframes slidein {
+    from {
+        background-position: top;
+        background-size: 2300px;
+    }
+
+    to {
+        background-position: -100px 0px;
+        background-size: 2100px;
+    }
+}
+
+@keyframes slidein {
+    from {
+        background-position: top;
+        background-size: 2300px;
+    }
+
+    to {
+        background-position: -100px 0px;
+        background-size: 2100px;
+    }
+
+}
+
+.title {
+    width: 100%;
+    font-size: 4rem;
+    color: white;
+    padding-left: 8rem;
+    z-index: 2;
+}
+
+.mission{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    margin-top: 12%;
+}
+
+.missionImg{
+    width: 35%;
+    overflow: hidden;
+    border-radius: 6px;
+}
+
+.missionImg img {
+    width: 100%;
+    height: 100%;
+}
+
+.missionInfo{
+    width: 35%;
+    font-size: 1.2rem;
+    color: #0D0338;
+    line-height: 1.5;
+    font-weight: 400;
+}
+
+.missionInfo h2{
+    font-size: 3rem;
+    color: #0D0338;
+    line-height: 1.5;
+}
+
+/* team */
+
+.team{
+    margin-top: 12%;
+}
+
+.team h2 {
+    font-size: 3.2rem;
+    color: #0D0338;
+    line-height: 1.5;
+    text-align: center;
+}
+
+.cardWrapper{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    gap: 10px;
+}
+
+.card h1 {
+    width: 100%;
+    font-size: 2.5rem;
+    text-align: center;
+    color: #0D0338;
+    font-weight: bold;
+}
+
+.userImageContainer {
+    width: 90%;
+    height: 50%;
+    margin-top: 4%;
+}
+
+.userImageContainer img {
+    width: 100%;
+    height: 100%;
+    border-radius: 24px;
+    border: 1px solid #476FD6;
+    -webkit-box-shadow: 4px 4px 9px -3px rgba(0,0,0,0.75);
+-moz-box-shadow: 4px 4px 9px -3px rgba(0,0,0,0.75);
+box-shadow: 4px 4px 9px -3px rgba(0,0,0,0.75);
+    object-fit: cover;
+}
+
+.cardWrapper {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+}
+
+.cardContiner {
+    width: 80%;
+    height: 35rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 6px;
+    background: #0D0338;
+    background: linear-gradient(310deg, #0D0338 0%, rgba(124,242,249,1) 25%, rgba(215,252,255,1) 25%);
+    -webkit-box-shadow: 9px 5px 32px 0px rgba(0, 0, 0, 0.57);
+    -moz-box-shadow: 9px 5px 32px 0px rgba(0, 0, 0, 0.57);
+    box-shadow: 9px 5px 32px 0px rgba(0, 0, 0, 0.57);
+    transition: all .4s ease-in-out;
+    padding-bottom: 3%;
+}
+
+.cardContiner:hover{
+    transform: scale(1.05);
+    cursor: pointer;
+}
+
+.userInfo {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    gap: 2px;
+    flex-wrap: wrap;
+    text-align: center;
+    max-height: 80%;
+}
+
+.userInfo .infoContainer {
+    width: 40%;
+    font-size: 1.4rem;
+    color: #040111;
+}
+
+.userInfo .role {
+    width: 80%;
+}
+
+.userInfo .infoContainer p {
+    font-weight: bold;
+}
+
+.userInfo .infoContainer label {
+    font-weight: 400;
+}
