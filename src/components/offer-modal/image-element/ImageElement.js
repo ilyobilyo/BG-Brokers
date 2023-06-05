@@ -7,7 +7,7 @@ export const ImageElement = ({ src, onClickHandler, index }) => {
     }
 
     return (
-        <div className={styles.modalImg}  onClick={clickHanler}>
+        <div className={styles.modalImg}>
             <img src={src} alt="offer photo" />
         </div>
     )
