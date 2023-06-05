@@ -6,9 +6,16 @@ header {
     width: 100%;
     height: 6%;
     z-index: 1;
+    background-color: transparent;
+    transition: background-color 1s ease;
 }
 
-header img{
+.fixed {
+    background-color: #a8c0ff;
+    /* Background color when scrolled */
+}
+
+header img {
     padding-left: 15%;
 }
 
