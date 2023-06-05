@@ -14,6 +14,7 @@ export const getAllUsers = async () => {
             phoneNumber: data.phoneNumber,
             town: data.town,
             roles: data.roles,
+            resume: data.resume,
             img: data.img,
             isDeleted: data.isDeleted
         }
