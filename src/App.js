@@ -20,6 +20,7 @@ import { EditUser } from './components/manage-users/edit-user/EditUser';
 import { MyProfile } from './components/my-profile/MyProfile';
 import { CreateType } from './components/create-type/CreateType';
 import { AuthenticatedGuard } from './components/common/AuthenticatedGuard';
+import { AboutUs } from './components/about-us/AboutUs';
 
 function App() {
   const location = useLocation();
@@ -38,9 +39,11 @@ function App() {
                   <Route path="/" element={<Home />}>
                     <Route path="/create" element={<CreateOffer />} />
                     <Route path='/createType' element={<CreateType />} />
-                    <Route path='/offer/:offerId' element={<OfferModal />} />
                     <Route path='/edit/:offerId' element={<EditOffer />} />
                   </Route>
+
+                  <Route path='/offer/:offerId' element={<OfferModal />} />
+                  <Route path='/about' element={<AboutUs />} />
 
                   <Route element={<AuthenticatedGuard />}>
                     <Route path='/account/register' element={<Register />} />
@@ -50,9 +53,7 @@ function App() {
                   <Route element={<PrivateGuard />}>
                     <Route path="/logout" element={<Logout />} />
                     <Route path='/myProfile' element={<MyProfile />}>
-                      <Route path='offer/:offerId' element={<OfferModal />} />
                       <Route path='edit/:offerId' element={<EditOffer />} />
-
                     </Route>
                     <Route path="/editUser/:userId" element={<EditUser />} />
                   </Route>
@@ -66,8 +67,6 @@ function App() {
                 {background && (
                   <Routes>
                     <Route path="/create" element={<CreateOffer />} />
-                    <Route path='/offer/:offerId' element={<OfferModal />} />
-                    <Route path='myProfile/offer/:offerId' element={<OfferModal />} />
                     <Route path='myProfile/edit/:offerId' element={<EditOffer />} />
                     <Route path='/edit/:offerId' element={<EditOffer />} />
                     <Route path="/editUser/:userId" element={<EditUser />} />
